@@ -1,0 +1,16 @@
+{
+  "nome_loja": "Ornato",
+  "slogan": "Moda feminina com elegância e propósito",
+  "sobre": "A Ornato nasceu para mulheres que valorizam estilo, qualidade e autenticidade. Mais que moda, oferecemos uma experiência única de se sentir bem, confiante e ainda mais você.",
+  "beneficios": [
+    "Curadoria de moda feminina",
+    "Estilo atemporal",
+    "Atendimento acolhedor"
+  ],
+  "atendimento": {
+    "whatsapp": "(00) 00000-0000",
+    "email": "contato@ornato.com",
+    "horario": "Segunda a sexta, das 9h às 18h"
+  },
+  "observacao": "Informações ilustrativas para apresentação. Substitua pelos dados reais ou fictícios definitivos do projeto."
+}
