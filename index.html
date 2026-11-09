@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ornato - Moda Feminina</title>
+    <!-- Fontes e Ícones -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0f0d;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-light: #f9f9f9;
+            --text-muted: #b0b0b0;
+            --card-bg: #131916;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .top-bar {
+            background-color: #050807;
+            color: var(--gold);
+            font-size: 12px;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--text-light);
+            letter-spacing: 2px;
+            font-size: 28px;
+        }
+
+        .logo p {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .nav-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--gold);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .hero {
+            height: 70vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding-left: 80px;
+            position: relative;
+            background-color: #111;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, rgba(10,15,13,0.9) 30%, rgba(10,15,13,0.4) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        .sub-title {
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .hero h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 48px;
+            margin-bottom: 25px;
+        }
+
+        .btn-primary, .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--gold);
+            color: var(--bg-dark);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--gold-light);
+        }
+
+        .benefits {
+            display: flex;
+            justify-content: space-around;
+            padding: 25px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            font-size: 14px;
+            color: var(--gold);
+        }
+
+        .about-section {
+            padding: 80px 20px;
+            text-align: center;
+            background-color: var(--card-bg);
+        }
+
+        .about-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .about-text h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .categories-section {
+            padding: 60px 50px;
+            text-align: center;
+        }
+
+        .categories-section h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: var(--gold);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-card h4 {
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        /* Chatbot Widget Styles */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background: var(--card-bg);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 1000;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: #050807;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            cursor: pointer;
+        }
+
+        .chat-title-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-avatar {
+            width: 32px; height: 32px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .chat-header h4 {
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .chat-header span {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .chat-body {
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .message {
+            padding: 10px 14px;
+            border-radius: 10px;
+            max-width: 85%;
+            line-height: 1.4;
+        }
+
+        .bot-message {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--text-light);
+            align-self: flex-start;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .user-message {
+            background: var(--gold);
+            color: var(--bg-dark);
+            align-self: flex-end;
+            font-weight: 500;
+        }
+
+        .chat-suggestions {
+            padding: 8px 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .suggestion-chip {
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: var(--gold-light);
+            font-size: 11px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .suggestion-chip:hover {
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            background: #050807;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 13px;
+            outline: none;
+            padding: 5px;
+        }
+
+        .chat-input-area button {
+            background: var(--gold);
+            border: none;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            color: var(--bg-dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-footer-brand {
+            font-size: 9px;
+            text-align: center;
+            padding: 4px;
+            color: var(--text-muted);
+            background: #030504;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <span><i class="fa-solid fa-truck-fast"></i> Frete grátis para todo o Brasil*</span>
+        <span><i class="fa-solid fa-shield-halved"></i> Compra segura</span>
+        <span><i class="fa-solid fa-credit-card"></i> Parcele em até 12x</span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <h1>ORNATO</h1>
+            <p>Moda feminina com elegância e propósito</p>
+        </div>
+        <nav class="nav-menu">
+            <a href="#inicio" class="active">Início</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#produtos">Produtos</a>
+            <a href="#contato">Contato</a>
+        </nav>
+        <div class="header-icons">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-regular fa-user"></i>
+            <div class="cart-icon"><i class="fa-solid fa-bag-shopping"></i><span class="cart-count">0</span></div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <span class="sub-title">MODA FEMININA COM ELEGÂNCIA E PROPÓSITO</span>
+            <h2>Vista sua melhor versão.</h2>
+            <a href="#produtos" class="btn-primary">Conheça nossa coleção <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- Benefícios -->
+    <section class="benefits">
+        <div><i class="fa-solid fa-gem"></i> Qualidade Premium</div>
+        <div><i class="fa-solid fa-lock"></i> Compra Segura</div>
+        <div><i class="fa-solid fa-truck"></i> Entrega para todo o Brasil</div>
+        <div><i class="fa-solid fa-credit-card"></i> Parcele em até 12x</div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="about-section">
+        <div class="about-container">
+            <div class="about-text">
+                <h3>Sobre a Ornato</h3>
+                <p id="sobre-texto">Carregando informações da loja...</p>
+                <a href="#" class="btn-secondary">Saiba mais <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categorias -->
+    <section id="produtos" class="categories-section">
+        <h3>Nossas Categorias</h3>
+        <div class="categories-grid" id="categorias-container">
+            <!-- Dinâmico -->
+        </div>
+    </section>
+
+    <!-- Chatbot Widget -->
+    <div class="chat-widget">
+        <div class="chat-header" id="chat-toggle">
+            <div class="chat-title-area">
+                <div class="chat-avatar"><i class="fa-solid fa-crown"></i></div>
+                <div>
+                    <h4>ORNATO</h4>
+                    <span>Assistente de Moda</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-minus" id="chat-minimize-icon"></i>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message">
+                    Olá! 👋<br>Sou a assistente virtual da Ornato. Como posso te ajudar hoje?
+                </div>
+            </div>
+            <div class="chat-suggestions">
+                <button class="suggestion-chip">Quais produtos vocês têm?</button>
+                <button class="suggestion-chip">Qual o valor das peças?</button>
+                <button class="suggestion-chip">Vocês entregam na minha cidade?</button>
+                <button class="suggestion-chip">Me ajuda a escolher um look</button>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Digite sua mensagem...">
+                <button id="chat-send"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+            <div class="chat-footer-brand">
+                Powered by Google Gemini
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIGURAÇÕES E DADOS (Substitua a chave da API e edite os dados aqui facilmente) -->
+    <script>
+        window.CONFIG = {
+            GEMINI_API_KEY: "SUA_CHAVE_DA_API_AQUI",
+            SYSTEM_INSTRUCTIONS: "Você é a Ornatot, assistente virtual da Ornato, uma marca de moda feminina elegante. Responda de forma gentil, sofisticada e prestativa. Utilize as informações da loja e a lista de produtos disponíveis para tirar dúvidas das clientes."
+        };
+
+        // Informações institucionais (equivalente ao conhecimento.json)
+        const dadosLoja = {
+            "nome_loja": "Ornato",
+            "slogan": "Moda feminina com elegância e propósito",
+            "sobre": "A Ornato nasceu para mulheres que valorizam estilo, qualidade e autenticidade. Mais que moda, oferecemos uma experiência única de se sentir bem, confiante e ainda mais você.",
+            "beneficios": ["Frete grátis para todo o Brasil*", "Compra segura", "Parcele em até 12x", "Qualidade Premium"],
+            "atendimento": {
+                "whatsapp": "(00) 00000-0000",
+                "email": "contato@ornato.com",
+                "horario": "Segunda a Sexta, das 9h às 18h"
+            }
+        };
+
+        // Lista de produtos e categorias (equivalente ao produtos.json)
+        const dadosProdutos = {
+            "categorias": [
+                { "id": "vestidos", "nome": "Vestidos" },
+                { "id": "conjuntos", "nome": "Conjuntos" },
+                { "id": "blusas", "nome": "Blusas" },
+                { "id": "calcas", "nome": "Calças" }
+            ],
+            "produtos": [
+                {
+                    "id": 1,
+                    "nome": "Vestido Midi Elegance",
+                    "categoria": "vestidos",
+                    "preco": "R$ 299,90",
+                    "descricao": "Vestido midi com tecido premium, caimento perfeito e toque sofisticado."
+                },
+                {
+                    "id": 2,
+                    "nome": "Conjunto Alfaiataria Chic",
+                    "categoria": "conjuntos",
+                    "preco": "R$ 389,90",
+                    "descricao": "Conjunto composto por blazer e calça de alfaiataria de alta qualidade."
+                }
+            ]
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Popular textos e categorias na tela
+            document.getElementById('sobre-texto').innerText = dadosLoja.sobre;
+
+            const catContainer = document.getElementById('categorias-container');
+            catContainer.innerHTML = dadosProdutos.categorias.map(cat => `
+                <div class="category-card">
+                    <i class="fa-solid fa-shirt" style="font-size: 32px; color: var(--gold); margin-bottom: 15px;"></i>
+                    <h4>${cat.nome}</h4>
+                </div>
+            `).join('');
+
+            // Lógica do Chatbot com Gemini API
+            const chatBody = document.getElementById('chat-body');
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+            const minimizeIcon = document.getElementById('chat-minimize-icon');
+
+            chatToggle.addEventListener('click', () => {
+                if (chatBody.style.display === 'none') {
+                    chatBody.style.display = 'flex';
+                    minimizeIcon.className = 'fa-solid fa-minus';
+                } else {
+                    chatBody.style.display = 'none';
+                    minimizeIcon.className = 'fa-solid fa-plus';
+                }
+            });
+
+            async function enviarMensagem(texto) {
+                if (!texto.trim()) return;
+
+                appendMessage(texto, 'user-message');
+                chatInput.value = '';
+
+                if (!window.CONFIG || window.CONFIG.GEMINI_API_KEY === "SUA_CHAVE_DA_API_AQUI") {
+                    appendMessage("⚠️ A chave da API do Gemini não foi configurada nas configurações do script.", 'bot-message');
+                    return;
+                }
+
+                const contextoCompleto = `${window.CONFIG.SYSTEM_INSTRUCTIONS}\n\nInformações da Loja:\n${JSON.stringify(dadosLoja)}\n\nProdutos:\n${JSON.stringify(dadosProdutos)}`;
+
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${window.CONFIG.GEMINI_API_KEY}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [
+                                { role: "user", parts: [{ text: contextoCompleto + "\n\nPergunta da cliente: " + texto }] }
+                            ]
+                        })
+                    });
+
+                    const data = await response.json();
+                    const respostaIA = data.candidates?.[0]?.content?.parts?.[0]?.text || "Desculpe, tive um pequeno problema ao processar sua dúvida. Poderia repetir?";
+                    appendMessage(respostaIA, 'bot-message');
+
+                } catch (err) {
+                    console.error(err);
+                    appendMessage("Desculpe, ocorreu um erro de conexão.", 'bot-message');
+                }
+            }
+
+            function appendMessage(texto, classe) {
+                const div = document.createElement('div');
+                div.className = `message ${classe}`;
+                div.innerHTML = texto.replace(/\n/g, '<br>');
+                chatMessages.appendChild(div);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            chatSend.addEventListener('click', () => enviarMensagem(chatInput.value));
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') enviarMensagem(chatInput.value);
+            });
+
+            document.querySelectorAll('.suggestion-chip').forEach(button => {
+                button.addEventListener('click', () => {
+                    enviarMensagem(button.textContent);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
