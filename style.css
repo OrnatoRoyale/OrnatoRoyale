@@ -28,3 +28,13 @@
 .purpose-values li b{color:var(--green);font-weight:600}
 @media(max-width:850px){.brand-purpose{padding:68px 5%}.purpose-grid{gap:12px}.purpose-card{padding:25px 19px}.purpose-card h3{font-size:19px}}
 @media(max-width:560px){.brand-purpose{padding:58px 7%}.purpose-heading{margin-bottom:27px}.purpose-grid{grid-template-columns:1fr;gap:11px}.purpose-card{min-height:0;padding:25px 23px}.purpose-card h3{margin:13px 0 9px}.purpose-values ul{gap:7px}}
+
+/* Navegação multipágina e novas páginas */
+.ornato-logo-image{width:100%;height:100%;display:block;object-fit:contain;object-position:center}
+.chat-avatar .ornato-logo-image{width:19px;height:25px}
+.home-intro{padding:76px 0;background:var(--cream);text-align:center}.home-intro h2,.brand-story h2{font:400 clamp(34px,4vw,48px)/1.2 var(--serif);margin:15px 0;color:var(--ink)}.home-intro h2 em,.brand-story h2 em{color:var(--green)}.home-intro p{max-width:470px;margin:0 auto 22px;font-size:12px;line-height:1.9;color:var(--muted)}
+.home-feature{padding:54px 0 22px}.home-feature .collection-heading{margin-bottom:0}.page-hero{padding:75px 0 68px;background:var(--cream);border-bottom:1px solid var(--line)}.page-hero h1{font:400 clamp(42px,5vw,64px)/1.1 var(--serif);margin:14px 0;color:var(--ink)}.page-hero h1 em{color:var(--green)}.page-hero p{font-size:12px;line-height:1.8;color:var(--muted);max-width:480px;margin:0}
+.brand-story{padding:75px 0;background:#fff}.brand-story .section-wrap{max-width:780px}.brand-story p{font-size:13px;line-height:2;color:#62675f;max-width:680px}
+.inspiration-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding-top:55px;padding-bottom:80px}.inspiration-card{border:1px solid var(--line);background:#fff}.inspiration-card img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}.inspiration-card>div{padding:20px}.inspiration-card span{font-size:8px;letter-spacing:.16em;color:#967b47}.inspiration-card h2{font:500 21px var(--serif);color:var(--green);margin:10px 0}.inspiration-card p{font-size:11px;line-height:1.8;color:var(--muted);margin:0}
+@media(max-width:850px){.inspiration-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.home-intro{padding:58px 0}.page-hero{padding:56px 0}.inspiration-grid{grid-template-columns:1fr;padding-top:32px;padding-bottom:55px}.inspiration-card img{aspect-ratio:5/4}.home-feature{padding:40px 0 15px}}
