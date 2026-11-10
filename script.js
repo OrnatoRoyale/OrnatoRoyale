@@ -89,9 +89,11 @@
 
   function getApiError(data, status) {
     const message = data?.error?.message || "";
-    if (status === 429) return "O limite gratuito de consultas foi atingido por enquanto. Tente novamente mais tarde.";
-    if (status === 400 || status === 403) return "A API recusou a solicitação. Confira a chave, o modelo e as permissões no arquivo config.js.";
-    if (status === 404) return "O modelo configurado não foi encontrado. Confira GEMINI_MODEL no arquivo config.js.";
+    if (status === 401) return "A chave da Groq é inválida ou foi revogada. Confira GROQ_API_KEY no arquivo config.js.";
+    if (status === 403) return "A Groq recusou o acesso. Confira as permissões e os limites da sua conta.";
+    if (status === 429) return "O limite de consultas da Groq foi atingido. Aguarde um pouco e tente novamente.";
+    if (status === 400) return message ? `A Groq recusou a solicitação: ${message}` : "A Groq não aceitou os parâmetros enviados. Confira o modelo configurado.";
+    if (status === 404) return "O modelo configurado não foi encontrado. Confira GROQ_MODEL no arquivo config.js.";
     return message ? `Não consegui responder: ${message}` : "Não consegui obter uma resposta agora. Tente novamente em instantes.";
   }
 
@@ -103,10 +105,10 @@
     const send = $("#chat-send");
     input.value = "";
     const config = window.CONFIG || {};
-    const apiKey = typeof config.GEMINI_API_KEY === "string" ? config.GEMINI_API_KEY.trim() : "";
-    const missingApiKey = !apiKey || ["api_aqui", "sua_chave_da_api_aqui", "sua_chave_api_aqui"].includes(apiKey.toLowerCase());
+    const apiKey = typeof config.GROQ_API_KEY === "string" ? config.GROQ_API_KEY.trim() : "";
+    const missingApiKey = !apiKey || ["cole_sua_chave_aqui", "gsk_sua_chave_aqui", "api_aqui"].includes(apiKey.toLowerCase());
     if (missingApiKey) {
-      appendMessage("O chatbot ainda não foi conectado à API. Adicione sua chave no arquivo config.js para ativar as respostas.", "bot-message");
+      appendMessage("O chatbot ainda não foi conectado à Groq. Adicione sua chave no campo GROQ_API_KEY do arquivo config.js.", "bot-message");
       return;
     }
 
@@ -121,16 +123,27 @@
       JSON.stringify(state.catalog || {})
     ].join("\n\n");
 
-    const contents = [...state.history, { role: "user", parts: [{ text }] }];
+    const messages = [
+      { role: "system", content: systemInstruction },
+      ...state.history,
+      { role: "user", content: text }
+    ];
+
     try {
-      const model = config.GEMINI_MODEL || "gemini-3.8-flash";
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`, {
+      const model = config.GROQ_MODEL || "openai/gpt-oss-120b";
+      const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`
+        },
         body: JSON.stringify({
-          systemInstruction: { parts: [{ text: systemInstruction }] },
-          contents,
-          generationConfig: { temperature: 0.6, maxOutputTokens: 700 }
+          model,
+          messages,
+          temperature: 0.6,
+          max_completion_tokens: 1200,
+          reasoning_effort: "low",
+          include_reasoning: false
         })
       });
       const data = await response.json().catch(() => ({}));
@@ -139,19 +152,20 @@
         appendMessage(getApiError(data, response.status), "bot-message");
         return;
       }
-      const answer = (data.candidates?.[0]?.content?.parts || []).map((part) => part.text || "").join("\n").trim();
+      const answer = data.choices?.[0]?.message?.content?.trim() || "";
       if (!answer) {
-        appendMessage("Não consegui formular uma resposta para essa pergunta. Pode tentar de outra maneira?", "bot-message");
+        appendMessage("A Groq respondeu, mas não retornou um texto visível. Tente novamente.", "bot-message");
+        console.warn("Resposta sem conteúdo textual da Groq:", data);
         return;
       }
       appendMessage(answer, "bot-message");
-      state.history.push({ role: "user", parts: [{ text }] }, { role: "model", parts: [{ text: answer }] });
+      state.history.push({ role: "user", content: text }, { role: "assistant", content: answer });
       // Keep the request context bounded during a long demonstration.
       if (state.history.length > 12) state.history = state.history.slice(-12);
     } catch (error) {
       loading.remove();
-      console.error("Erro ao consultar o Gemini:", error);
-      appendMessage("Não consegui conectar ao serviço agora. Verifique a conexão e tente novamente.", "bot-message");
+      console.error("Erro ao consultar a Groq:", error);
+      appendMessage("Não consegui conectar à Groq agora. Verifique a conexão e tente novamente.", "bot-message");
     } finally {
       state.busy = false;
       send.disabled = false;
