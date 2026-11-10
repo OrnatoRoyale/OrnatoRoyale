@@ -42,8 +42,10 @@
       return;
     }
     products.forEach((product) => {
-      const card = document.createElement("article");
+      const card = document.createElement("a");
       card.className = "product-card";
+      card.href = `produto.html?id=${encodeURIComponent(product.id)}`;
+      card.setAttribute("aria-label", `Ver detalhes de ${product.nome || "produto"}`);
       const gallery = document.createElement("div");
       gallery.className = "product-gallery";
       const images = Array.isArray(product.imagens) && product.imagens.length
@@ -82,6 +84,69 @@
       card.append(info);
       container.append(card);
     });
+  }
+
+  function renderProductDetail() {
+    const container = $("#produto-detalhe");
+    if (!container) return;
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+    const product = (state.catalog.produtos || []).find((item) => String(item.id) === String(productId));
+    if (!product) {
+      container.innerHTML = '<div class="product-not-found"><span class="section-kicker">SELEÇÃO ORNATO</span><h1>Produto não encontrado.</h1><p>Este item pode não estar mais disponível no catálogo.</p><a class="button button-dark" href="produtos.html">Voltar aos produtos <i class="fa-solid fa-arrow-right"></i></a></div>';
+      document.title = "Produto não encontrado | Ornato";
+      return;
+    }
+
+    document.title = `${product.nome} | Ornato — Moda feminina`;
+    const categoryName = state.catalog.categorias.find((item) => item.id === product.categoria)?.nome || "Coleção Ornato";
+    const images = Array.isArray(product.imagens) && product.imagens.length
+      ? product.imagens
+      : (product.imagem ? [product.imagem] : []);
+
+    const layout = document.createElement("div");
+    layout.className = "product-detail-layout";
+    const gallery = document.createElement("div");
+    gallery.className = "product-detail-gallery";
+    images.forEach((src, index) => {
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = `${product.nome} — foto ${index + 1}`;
+      image.loading = index > 0 ? "lazy" : "eager";
+      image.onerror = () => { image.hidden = true; };
+      gallery.append(image);
+    });
+
+    const info = document.createElement("div");
+    info.className = "product-detail-info";
+    const breadcrumb = document.createElement("div");
+    breadcrumb.className = "product-detail-breadcrumb";
+    breadcrumb.textContent = `Produtos / ${categoryName}`;
+    const title = document.createElement("h1");
+    title.textContent = product.nome || "Produto Ornato";
+    const price = document.createElement("div");
+    price.className = "product-detail-price";
+    price.textContent = product.preco || "Consulte informações";
+    const descriptionTitle = document.createElement("h2");
+    descriptionTitle.textContent = "Sobre a peça";
+    const description = document.createElement("p");
+    description.className = "product-detail-description";
+    description.textContent = product.descricao || "Uma escolha especial da seleção Ornato.";
+    const note = document.createElement("p");
+    note.className = "product-detail-note";
+    note.textContent = "Entre em contato com a Ornato para consultar disponibilidade e detalhes desta peça.";
+    const buy = document.createElement("button");
+    buy.type = "button";
+    buy.className = "product-buy-button";
+    buy.textContent = "Comprar";
+    buy.setAttribute("aria-label", "Comprar — botão demonstrativo, sem funcionalidade");
+    const back = document.createElement("a");
+    back.className = "product-back-link";
+    back.href = "produtos.html";
+    back.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Voltar para a coleção';
+    info.append(breadcrumb, title, price, descriptionTitle, description, note, buy, back);
+    layout.append(gallery, info);
+    container.replaceChildren(layout);
   }
 
   function appendMessage(text, role) {
@@ -217,6 +282,7 @@
       const footerContact = $("#footer-contact"); if (footerContact) footerContact.textContent = details.length ? details.join(" • ") : "Entre em contato para saber mais sobre a Ornato.";
       renderCategories();
       renderProducts();
+      renderProductDetail();
     } catch (error) {
       console.error("Erro ao carregar os dados do site:", error);
       if ($("#sobre-texto")) $("#sobre-texto").textContent = "As informações da marca estarão disponíveis em breve.";
