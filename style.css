@@ -49,3 +49,63 @@
 .about-logo-image{display:block;width:100px;height:100px;object-fit:contain;transform:scale(1.65);margin-bottom:10px}
 @media(max-width:850px){.brand-symbol{width:48px;height:58px}.brand-footer .brand-symbol{width:58px;height:68px}}
 @media(max-width:560px){.brand-symbol{width:46px;height:55px}.brand-footer .brand-symbol{width:54px;height:64px}.chat-avatar{width:44px;height:44px}.chat-avatar .ornato-logo-image{transform:scale(2.15)}}
+
+
+/* Correção efetiva: ampliar o símbolo dentro da área transparente do PNG */
+.site-header .brand-symbol,
+.footer .brand-footer .brand-symbol {
+  width: 58px;
+  height: 70px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 58px;
+}
+.site-header .brand-symbol > .ornato-logo-image,
+.footer .brand-footer .brand-symbol > .ornato-logo-image {
+  width: 200%;
+  height: 200%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  transform: none;
+  flex: 0 0 auto;
+}
+.footer .brand-footer .brand-symbol {
+  width: 66px;
+  height: 78px;
+  flex-basis: 66px;
+}
+.chat-widget .chat-header .chat-avatar {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: #102b21;
+  border: 1px solid #d5a653;
+  box-shadow: 0 0 0 2px rgba(213,166,83,.14);
+}
+.chat-widget .chat-header .chat-avatar > .ornato-logo-image {
+  width: 175%;
+  height: 175%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  transform: none;
+  flex: 0 0 auto;
+}
+@media(max-width:850px) {
+  .site-header .brand-symbol { width:52px; height:62px; flex-basis:52px; }
+  .site-header .brand-symbol > .ornato-logo-image { width:200%; height:200%; }
+}
+@media(max-width:560px) {
+  .site-header .brand-symbol { width:48px; height:58px; flex-basis:48px; }
+  .footer .brand-footer .brand-symbol { width:58px; height:68px; flex-basis:58px; }
+  .chat-widget .chat-header .chat-avatar { width:46px; height:46px; flex-basis:46px; }
+  .chat-widget .chat-header .chat-avatar > .ornato-logo-image { width:170%; height:170%; }
+}
