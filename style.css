@@ -38,3 +38,14 @@
 .inspiration-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding-top:55px;padding-bottom:80px}.inspiration-card{border:1px solid var(--line);background:#fff}.inspiration-card img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}.inspiration-card>div{padding:20px}.inspiration-card span{font-size:8px;letter-spacing:.16em;color:#967b47}.inspiration-card h2{font:500 21px var(--serif);color:var(--green);margin:10px 0}.inspiration-card p{font-size:11px;line-height:1.8;color:var(--muted);margin:0}
 @media(max-width:850px){.inspiration-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.home-intro{padding:58px 0}.page-hero{padding:56px 0}.inspiration-grid{grid-template-columns:1fr;padding-top:32px;padding-bottom:55px}.inspiration-card img{aspect-ratio:5/4}.home-feature{padding:40px 0 15px}}
+
+
+/* Ajuste de escala e contraste da marca original */
+.brand-symbol{width:58px;height:68px;overflow:hidden;position:relative}
+.brand-symbol .ornato-logo-image{width:100%;height:100%;object-fit:contain;transform:scale(2.15)}
+.brand-footer .brand-symbol{width:64px;height:76px}
+.chat-avatar{width:46px;height:46px;flex:none;overflow:hidden;background:#102b21;border:1px solid rgba(198,167,94,.7);box-shadow:inset 0 0 0 2px rgba(255,255,255,.04)}
+.chat-avatar .ornato-logo-image{width:100%;height:100%;object-fit:contain;transform:scale(2.25)}
+.about-logo-image{display:block;width:100px;height:100px;object-fit:contain;transform:scale(1.65);margin-bottom:10px}
+@media(max-width:850px){.brand-symbol{width:48px;height:58px}.brand-footer .brand-symbol{width:58px;height:68px}}
+@media(max-width:560px){.brand-symbol{width:46px;height:55px}.brand-footer .brand-symbol{width:54px;height:64px}.chat-avatar{width:44px;height:44px}.chat-avatar .ornato-logo-image{transform:scale(2.15)}}
