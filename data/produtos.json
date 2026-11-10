@@ -1,26 +1,91 @@
 {
   "categorias": [
-    { "id": "vestidos", "nome": "Vestidos" },
-    { "id": "conjuntos", "nome": "Conjuntos" },
-    { "id": "blusas", "nome": "Blusas" },
-    { "id": "calcas", "nome": "Calças" }
+    {
+      "id": "vestidos",
+      "nome": "Vestidos"
+    },
+    {
+      "id": "conjuntos",
+      "nome": "Conjuntos"
+    }
   ],
   "produtos": [
     {
       "id": 1,
-      "nome": "Vestido Midi Elegance",
+      "nome": "Vestido Longo Floral",
       "categoria": "vestidos",
-      "preco": "R$ 299,90",
-      "descricao": "Vestido midi com caimento elegante e toque sofisticado.",
-      "imagem": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=900&q=85"
+      "preco": "R$ 289,90",
+      "descricao": "Estampa floral marcante e caimento fluido para uma produção cheia de personalidade.",
+      "imagens": [
+        "assets/produtos/01429e38-b160-4737-a6a5-0dd0da19a264.jpg",
+        "assets/produtos/895797cd-5ff5-45e8-aede-3abccbd1073c.jpg"
+      ]
     },
     {
       "id": 2,
-      "nome": "Conjunto Alfaiataria Chic",
+      "nome": "Conjunto Acetinado Caramelo",
       "categoria": "conjuntos",
-      "preco": "R$ 389,90",
-      "descricao": "Conjunto de alfaiataria com visual contemporâneo.",
-      "imagem": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85"
+      "preco": "R$ 259,90",
+      "descricao": "Blusa de decote elegante e saia longa acetinada em tom caramelo.",
+      "imagens": [
+        "assets/produtos/0295e7fc-b4f7-417e-b967-2a00f5eba420.jpg",
+        "assets/produtos/de42a66f-4afc-44dd-a73f-57c90ccd3637.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "nome": "Vestido Longo Rosé",
+      "categoria": "vestidos",
+      "preco": "R$ 349,90",
+      "descricao": "Vestido de festa em tom rosé com brilho acetinado e presença sofisticada.",
+      "imagens": [
+        "assets/produtos/13a06969-ef5e-43a5-8430-61446d70788b.jpg",
+        "assets/produtos/6b0b66b2-484b-4e79-ae71-328e44c8a636.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "nome": "Conjunto Elegance Bordô",
+      "categoria": "conjuntos",
+      "preco": "R$ 279,90",
+      "descricao": "Conjunto bordô de visual elegante, ideal para composições marcantes.",
+      "imagens": [
+        "assets/produtos/27de2be9-a01b-4763-93c5-a754949978f1.jpg",
+        "assets/produtos/e6e383a8-8f3f-4183-b13f-e7ac67d4c69f.jpg"
+      ]
+    },
+    {
+      "id": 5,
+      "nome": "Conjunto Verde Oliva",
+      "categoria": "conjuntos",
+      "preco": "R$ 269,90",
+      "descricao": "Combinação leve em verde oliva com proposta sofisticada e versátil.",
+      "imagens": [
+        "assets/produtos/3cac1ac5-7ae3-42cc-8e6a-21208fe42569.jpg",
+        "assets/produtos/b532c702-dae1-4333-abcf-fe67b257e878.jpg"
+      ]
+    },
+    {
+      "id": 6,
+      "nome": "Conjunto Off-white",
+      "categoria": "conjuntos",
+      "preco": "R$ 249,90",
+      "descricao": "Conjunto claro de linhas modernas para um visual clean e elegante.",
+      "imagens": [
+        "assets/produtos/721c415b-5a89-414a-80e7-eb8562943613.jpg",
+        "assets/produtos/d65f7b68-82c8-43eb-9105-53a3133baca7.jpg"
+      ]
+    },
+    {
+      "id": 7,
+      "nome": "Vestido Midi Marrom",
+      "categoria": "vestidos",
+      "preco": "R$ 279,90",
+      "descricao": "Vestido marrom de silhueta ajustada e detalhes delicados.",
+      "imagens": [
+        "assets/produtos/a35e060d-244c-451f-811e-40bf7ed5f996.jpg",
+        "assets/produtos/de86d188-140e-4562-b194-09335fc17663.jpg"
+      ]
     }
   ]
 }

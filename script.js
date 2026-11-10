@@ -44,20 +44,28 @@
     products.forEach((product) => {
       const card = document.createElement("article");
       card.className = "product-card";
-      if (product.imagem) {
-        const image = document.createElement("img");
-        image.className = "product-image";
-        image.src = product.imagem;
-        image.alt = product.nome || "Produto Ornato";
-        image.loading = "lazy";
-        image.onerror = () => { image.style.visibility = "hidden"; };
-        card.append(image);
+      const gallery = document.createElement("div");
+      gallery.className = "product-gallery";
+      const images = Array.isArray(product.imagens) && product.imagens.length
+        ? product.imagens
+        : (product.imagem ? [product.imagem] : []);
+      if (images.length) {
+        images.forEach((src, index) => {
+          const image = document.createElement("img");
+          image.className = "product-image";
+          image.src = src;
+          image.alt = `${product.nome || "Produto Ornato"} — foto ${index + 1}`;
+          image.loading = "lazy";
+          image.onerror = () => { image.style.visibility = "hidden"; };
+          gallery.append(image);
+        });
       } else {
         const placeholder = document.createElement("div");
         placeholder.className = "product-image";
         placeholder.setAttribute("aria-hidden", "true");
-        card.append(placeholder);
+        gallery.append(placeholder);
       }
+      card.append(gallery);
       const info = document.createElement("div");
       info.className = "product-info";
       const category = document.createElement("div");

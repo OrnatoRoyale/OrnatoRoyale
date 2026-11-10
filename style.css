@@ -143,3 +143,10 @@
     transform: scale(1.5);
   }
 }
+
+
+/* Galeria com as duas fotos originais de cada look */
+.product-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;background:var(--cream);overflow:hidden}
+.product-gallery .product-image{width:100%;height:auto;aspect-ratio:3/4;object-fit:contain;background:#f7f6f1;display:block}
+.product-gallery:has(.product-image:only-child){grid-template-columns:1fr}
+@media(max-width:560px){.product-gallery{gap:2px}.product-gallery .product-image{aspect-ratio:3/4}}
