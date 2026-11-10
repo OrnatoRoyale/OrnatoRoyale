@@ -178,9 +178,9 @@
   }
 
   async function init() {
-    $("#year").textContent = new Date().getFullYear();
-    $("#menu-toggle").addEventListener("click", () => $("#main-nav").classList.toggle("open"));
-    document.querySelectorAll("#main-nav a").forEach((link) => link.addEventListener("click", () => $("#main-nav").classList.remove("open")));
+    const year = $("#year"); if (year) year.textContent = new Date().getFullYear();
+    const menuToggle = $("#menu-toggle"); if (menuToggle) menuToggle.addEventListener("click", () => $("#main-nav")?.classList.toggle("open"));
+    document.querySelectorAll("#main-nav a").forEach((link) => link.addEventListener("click", () => $("#main-nav")?.classList.remove("open")));
     setupChat();
     try {
       const [knowledge, catalog] = await Promise.all([
@@ -189,17 +189,17 @@
       ]);
       state.knowledge = knowledge;
       state.catalog = catalog;
-      $("#sobre-texto").textContent = knowledge.sobre || "Conheça a essência da Ornato.";
+      const aboutText = $("#sobre-texto"); if (aboutText) aboutText.textContent = knowledge.sobre || "Conheça a essência da Ornato.";
       const contact = knowledge.atendimento || {};
       const details = [contact.whatsapp, contact.email, contact.horario].filter(Boolean);
-      $("#footer-contact").textContent = details.length ? details.join(" • ") : "Entre em contato para saber mais sobre a Ornato.";
+      const footerContact = $("#footer-contact"); if (footerContact) footerContact.textContent = details.length ? details.join(" • ") : "Entre em contato para saber mais sobre a Ornato.";
       renderCategories();
       renderProducts();
     } catch (error) {
       console.error("Erro ao carregar os dados do site:", error);
-      $("#sobre-texto").textContent = "As informações da marca estarão disponíveis em breve.";
-      $("#categorias-container").textContent = "Não foi possível carregar as categorias.";
-      $("#produtos-container").textContent = "Não foi possível carregar o catálogo. Confira os arquivos JSON.";
+      if ($("#sobre-texto")) $("#sobre-texto").textContent = "As informações da marca estarão disponíveis em breve.";
+      if ($("#categorias-container")) $("#categorias-container").textContent = "Não foi possível carregar as categorias.";
+      if ($("#produtos-container")) $("#produtos-container").textContent = "Não foi possível carregar o catálogo. Confira os arquivos JSON.";
       appendMessage("Não consegui carregar as informações da loja. O catálogo e as respostas personalizadas podem ficar limitados.", "bot-message");
     }
   }
