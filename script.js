@@ -108,14 +108,69 @@
     layout.className = "product-detail-layout";
     const gallery = document.createElement("div");
     gallery.className = "product-detail-gallery";
-    images.forEach((src, index) => {
-      const image = document.createElement("img");
-      image.src = src;
-      image.alt = `${product.nome} — foto ${index + 1}`;
-      image.loading = index > 0 ? "lazy" : "eager";
-      image.onerror = () => { image.hidden = true; };
-      gallery.append(image);
+    const imageStage = document.createElement("div");
+    imageStage.className = "product-image-stage";
+    const mainImage = document.createElement("img");
+    mainImage.className = "product-main-image";
+    mainImage.alt = product.nome || "Produto Ornato";
+    const imageControls = document.createElement("div");
+    imageControls.className = "product-image-controls";
+    const previous = document.createElement("button");
+    previous.type = "button";
+    previous.className = "gallery-arrow gallery-previous";
+    previous.setAttribute("aria-label", "Ver foto anterior");
+    previous.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+    const next = document.createElement("button");
+    next.type = "button";
+    next.className = "gallery-arrow gallery-next";
+    next.setAttribute("aria-label", "Ver próxima foto");
+    next.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+    const counter = document.createElement("span");
+    counter.className = "gallery-counter";
+    imageControls.append(previous, counter, next);
+    imageStage.append(mainImage, imageControls);
+    const thumbnails = document.createElement("div");
+    thumbnails.className = "product-thumbnails";
+    thumbnails.setAttribute("aria-label", "Selecionar foto do produto");
+    let activeImage = 0;
+    const validImages = images.slice();
+    function showImage(index) {
+      if (!validImages.length) {
+        mainImage.hidden = true;
+        imageControls.hidden = true;
+        thumbnails.hidden = true;
+        return;
+      }
+      activeImage = (index + validImages.length) % validImages.length;
+      mainImage.src = validImages[activeImage];
+      mainImage.alt = `${product.nome} — foto ${activeImage + 1}`;
+      mainImage.hidden = false;
+      counter.textContent = `${activeImage + 1} / ${validImages.length}`;
+      imageControls.hidden = validImages.length < 2;
+      thumbnails.hidden = validImages.length < 2;
+      Array.from(thumbnails.children).forEach((button, buttonIndex) => {
+        button.classList.toggle("active", buttonIndex === activeImage);
+        button.setAttribute("aria-pressed", String(buttonIndex === activeImage));
+      });
+    }
+    validImages.forEach((src, index) => {
+      const thumbnail = document.createElement("button");
+      thumbnail.type = "button";
+      thumbnail.className = "product-thumbnail";
+      thumbnail.setAttribute("aria-label", `Selecionar foto ${index + 1}`);
+      thumbnail.setAttribute("aria-pressed", "false");
+      const thumbImage = document.createElement("img");
+      thumbImage.src = src;
+      thumbImage.alt = "";
+      thumbImage.loading = "lazy";
+      thumbnail.append(thumbImage);
+      thumbnail.addEventListener("click", () => showImage(index));
+      thumbnails.append(thumbnail);
     });
+    previous.addEventListener("click", () => showImage(activeImage - 1));
+    next.addEventListener("click", () => showImage(activeImage + 1));
+    showImage(0);
+    gallery.append(imageStage, thumbnails);
 
     const info = document.createElement("div");
     info.className = "product-detail-info";
