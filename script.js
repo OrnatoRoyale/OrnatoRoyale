@@ -103,7 +103,9 @@
     const send = $("#chat-send");
     input.value = "";
     const config = window.CONFIG || {};
-    if (!config.GEMINI_API_KEY || config.GEMINI_API_KEY === "SUA_CHAVE_DA_API_AQUI") {
+    const apiKey = typeof config.GEMINI_API_KEY === "string" ? config.GEMINI_API_KEY.trim() : "";
+    const missingApiKey = !apiKey || ["api_aqui", "sua_chave_da_api_aqui", "sua_chave_api_aqui"].includes(apiKey.toLowerCase());
+    if (missingApiKey) {
       appendMessage("O chatbot ainda não foi conectado à API. Adicione sua chave no arquivo config.js para ativar as respostas.", "bot-message");
       return;
     }
@@ -121,8 +123,8 @@
 
     const contents = [...state.history, { role: "user", parts: [{ text }] }];
     try {
-      const model = config.GEMINI_MODEL || "gemini-2.5-flash";
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(config.GEMINI_API_KEY)}`, {
+      const model = config.GEMINI_MODEL || "gemini-3.8-flash";
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
