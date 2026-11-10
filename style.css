@@ -174,3 +174,18 @@ a.product-card:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
 .product-not-found p{font-size:12px;color:var(--muted);margin-bottom:25px}
 @media(max-width:850px){.product-detail-layout{grid-template-columns:1fr;gap:28px}.product-detail-info{position:static;padding:0}.product-detail-gallery{max-width:700px}}
 @media(max-width:560px){.product-detail-section{padding:30px 0 60px}.product-detail-layout{gap:24px}.product-detail-gallery{gap:5px}.product-detail-info h1{font-size:35px}.product-detail-price{font-size:16px}}
+
+
+/* Galeria individual com imagem principal, setas e miniaturas */
+.product-detail-gallery{display:block;min-width:0}
+.product-image-stage{position:relative;width:100%;background:var(--cream);border:1px solid #eeece5;overflow:hidden}
+.product-main-image{display:block;width:100%;height:auto;max-height:780px;aspect-ratio:4/5;object-fit:contain;background:var(--cream)}
+.product-image-controls{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 14px;pointer-events:none}
+.gallery-arrow{width:40px;height:40px;border:1px solid rgba(198,167,94,.75);border-radius:50%;background:rgba(255,255,255,.92);color:var(--green);display:grid;place-items:center;cursor:pointer;pointer-events:auto;transition:background .2s,transform .2s}
+.gallery-arrow:hover{background:#fff;transform:scale(1.06)}
+.gallery-counter{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);padding:6px 10px;border-radius:20px;background:rgba(13,36,28,.78);color:#fff;font-size:9px;letter-spacing:.1em}
+.product-thumbnails{display:flex;gap:9px;margin-top:12px;flex-wrap:wrap}
+.product-thumbnail{width:76px;height:94px;padding:3px;border:1px solid var(--line);background:#fff;cursor:pointer;opacity:.72;transition:opacity .2s,border-color .2s}
+.product-thumbnail img{width:100%;height:100%;display:block;object-fit:contain;background:var(--cream)}
+.product-thumbnail:hover,.product-thumbnail.active{opacity:1;border:2px solid var(--gold)}
+@media(max-width:560px){.product-main-image{aspect-ratio:4/5}.product-image-controls{padding:0 8px}.gallery-arrow{width:34px;height:34px}.product-thumbnail{width:63px;height:79px}}
