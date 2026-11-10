@@ -1,7 +1,7 @@
 {
   "nome_loja": "Ornato",
   "slogan": "Moda feminina com elegância e propósito",
-  "sobre": "A Ornato nasceu para mulheres que valorizam estilo, qualidade e autenticidade. Mais que moda, oferecemos uma experiência única de se sentir bem, confiante e ainda mais você.",
+  "sobre": "A Ornato acredita que vestir-se é uma forma de expressar quem você é. Nossa proposta é valorizar a individualidade de cada mulher com uma curadoria de moda feminina que combina elegância, qualidade e versatilidade — para que cada escolha traduza confiança e autenticidade.",
   "beneficios": [
     "Curadoria de moda feminina",
     "Estilo atemporal",
@@ -12,5 +12,13 @@
     "email": "contato@ornato.com",
     "horario": "Segunda a sexta, das 9h às 18h"
   },
-  "observacao": "Informações ilustrativas para apresentação. Substitua pelos dados reais ou fictícios definitivos do projeto."
+  "observacao": "Informações ilustrativas para apresentação. Substitua pelos dados reais ou fictícios definitivos do projeto.",
+  "missao": "Inspirar mulheres a expressarem sua personalidade por meio da moda, oferecendo peças que unem beleza, qualidade e versatilidade para diferentes momentos da vida.",
+  "visao": "Construir uma marca reconhecida pela elegância, pela curadoria cuidadosa e por uma relação próxima e confiável com cada cliente.",
+  "valores": [
+    "Autenticidade: respeitar o estilo e a individualidade de cada mulher.",
+    "Qualidade: valorizar peças bem escolhidas, com atenção aos detalhes.",
+    "Elegância: cultivar um estilo atual, versátil e que vai além das tendências.",
+    "Acolhimento: oferecer uma experiência de compra atenciosa, transparente e próxima."
+  ]
 }
