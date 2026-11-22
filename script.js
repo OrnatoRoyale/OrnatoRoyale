@@ -112,7 +112,7 @@
     const q=question.toLocaleLowerCase("pt-BR");const contact=state.knowledge?.atendimento||{};const products=state.catalog.produtos||[];
     if(/produto|coleção|vestido|conjunto|peça/.test(q))return "A coleção atual reúne "+products.length+" peças entre vestidos e conjuntos. Explore os produtos e abra cada peça para ver fotos e detalhes.";
     if(/preço|preco|valor|custa/.test(q))return products.map(p=>p.nome+": "+p.preco).join("\n");
-    if(/tamanho|numeração|numeracao/.test(q))return "Os tamanhos exibidos são P, M, G e GG. A disponibilidade mostrada é demonstrativa e precisa ser confirmada com a equipe.";
+    if(/tamanho|numeração|numeracao/.test(q))return "Os tamanhos exibidos são PP, P, M, G, GG e XG. A disponibilidade mostrada é demonstrativa e precisa ser confirmada com a equipe.";
     if(/entrega|frete|envio|retirada/.test(q))return "A Ornato informa envio para todo o Brasil e retirada na loja principal no Rio de Janeiro. Endereço, prazo e frete são confirmados no atendimento.";
     if(/pagamento|pix|cartão|cartao/.test(q))return "As opções exibidas são PIX, cartão de crédito, cartão de débito e dinheiro na retirada. São demonstrativas e devem ser confirmadas com a loja.";
     if(/troca|devolução|devolucao/.test(q))return state.knowledge?.politica_troca||"Entre em contato com a equipe para orientações sobre trocas e devoluções.";
