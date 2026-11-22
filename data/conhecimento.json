@@ -1,24 +1,63 @@
 {
-  "nome_loja": "Ornato",
-  "slogan": "Moda feminina com elegância e propósito",
-  "sobre": "A Ornato acredita que vestir-se é uma forma de expressar quem você é. Nossa proposta é valorizar a individualidade de cada mulher com uma curadoria de moda feminina que combina elegância, qualidade e versatilidade — para que cada escolha traduza confiança e autenticidade.",
+  "nome_loja": "ORNATO",
+  "slogan": "O luxo de ser você.",
+  "frases_marca": [
+    {
+      "texto": "O luxo de ser você.",
+      "uso": "Slogan principal da marca"
+    },
+    {
+      "texto": "A arte de vestir a elegância.",
+      "uso": "Campanhas e comunicação institucional"
+    },
+    {
+      "texto": "O extraordinário está em cada detalhe.",
+      "uso": "Qualidade e acabamento"
+    },
+    {
+      "texto": "Uma nova perspectiva sobre o luxo.",
+      "uso": "Posicionamento da marca"
+    },
+    {
+      "texto": "A moda passa. A elegância permanece.",
+      "uso": "Identidade atemporal"
+    }
+  ],
+  "sobre": "A Ornato nasceu com o propósito de transformar a maneira como a mulher vive a moda e se relaciona com o luxo. Nossa essência é oferecer uma experiência sofisticada, unindo a elegância da alta-costura, a qualidade e a exclusividade a valores mais acessíveis. Em 2026, a Ornato representa a evolução de uma marca construída a partir de uma proposta clara: aproximar o universo da alta-costura de mais mulheres, tornando o luxo mais acessível, sem abrir mão da sofisticação, da qualidade e da atenção aos detalhes. Acreditamos que se vestir bem vai muito além das tendências; é uma forma de expressão, personalidade e autoestima. Por isso, nossa curadoria é pensada para mulheres que valorizam o refinamento, apreciam peças especiais e encontram na moda uma maneira de expressar sua própria essência. Cada escolha reflete nosso compromisso com a elegância, o acabamento e a beleza dos detalhes, reunindo referências clássicas e contemporâneas em uma seleção que valoriza a individualidade feminina. Mais do que uma marca de moda feminina, a Ornato é um convite para viver o luxo de uma nova maneira: com sofisticação, autenticidade e exclusividade, agora ao alcance de mais mulheres. ORNATO — O luxo de ser você.",
   "beneficios": [
     "Curadoria de moda feminina",
-    "Estilo atemporal",
-    "Atendimento acolhedor"
+    "Elegância e sofisticação acessíveis",
+    "Atenção aos detalhes",
+    "Entrega para todo o Brasil",
+    "Retirada na loja principal no Rio de Janeiro"
   ],
   "atendimento": {
-    "whatsapp": "(00) 00000-0000",
-    "email": "contato@ornato.com",
-    "horario": "Segunda a sexta, das 9h às 18h"
+    "whatsapp": "5522998300865",
+    "email": "ornato.oficial@gmail.com",
+    "horario": "Segunda a sábado, das 9h às 18h (horário de Brasília). Domingos e feriados: fechado."
   },
-  "observacao": "Informações ilustrativas para apresentação. Substitua pelos dados reais ou fictícios definitivos do projeto.",
-  "missao": "Inspirar mulheres a expressarem sua personalidade por meio da moda, oferecendo peças que unem beleza, qualidade e versatilidade para diferentes momentos da vida.",
-  "visao": "Construir uma marca reconhecida pela elegância, pela curadoria cuidadosa e por uma relação próxima e confiável com cada cliente.",
+  "localizacao": {
+    "cidade": "Rio de Janeiro, RJ",
+    "entrega": "Envio para todo o Brasil",
+    "retirada": "Retirada na loja principal no Rio de Janeiro. O endereço será informado na confirmação."
+  },
+  "pagamento": {
+    "opcoes": [
+      "PIX",
+      "Cartão de crédito",
+      "Cartão de débito",
+      "Dinheiro na retirada"
+    ],
+    "observacao": "Opções ilustrativas para demonstração; confirme com a loja."
+  },
+  "politica_troca": "Para solicitar troca ou devolução, entre em contato em até 7 dias corridos após o recebimento. A peça deve estar sem sinais de uso, com etiquetas e embalagem originais. A equipe orientará os próximos passos conforme a legislação aplicável.",
+  "missao": "Aproximar o universo da alta-costura de mais mulheres, com elegância, qualidade e exclusividade a valores mais acessíveis.",
+  "visao": "Ser reconhecida por uma nova perspectiva sobre o luxo, valorizando a individualidade feminina e a beleza dos detalhes.",
   "valores": [
-    "Autenticidade: respeitar o estilo e a individualidade de cada mulher.",
-    "Qualidade: valorizar peças bem escolhidas, com atenção aos detalhes.",
-    "Elegância: cultivar um estilo atual, versátil e que vai além das tendências.",
-    "Acolhimento: oferecer uma experiência de compra atenciosa, transparente e próxima."
-  ]
+    "Autenticidade: valorizar a individualidade de cada mulher.",
+    "Qualidade: atenção ao acabamento e aos detalhes.",
+    "Elegância: unir referências clássicas e contemporâneas.",
+    "Acessibilidade: aproximar a sofisticação de mais mulheres."
+  ],
+  "observacao": "Produtos, tamanhos, disponibilidade, avaliações e formas de pagamento podem conter dados fictícios. Confirme os detalhes com a loja antes de comprar."
 }

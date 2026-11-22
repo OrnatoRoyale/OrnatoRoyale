@@ -1,6 +1,10 @@
 (() => {
   const $ = (selector) => document.querySelector(selector);
-  const state = { knowledge: null, catalog: { categorias: [], produtos: [] }, history: [], busy: false, category: "todas" };
+  const state = { knowledge:null,catalog:{categorias:[],produtos:[]},history:[],busy:false,category:"todas",search:"",size:"todos",favoritesOnly:false,favorites:readFavorites() };
+  function readFavorites(){try{return JSON.parse(localStorage.getItem("ornato-favoritos")||"[]").map(String);}catch{return [];}}
+  function saveFavorites(){localStorage.setItem("ornato-favoritos",JSON.stringify(state.favorites));}
+  function isFavorite(id){return state.favorites.includes(String(id));}
+  function toggleFavorite(id){const k=String(id);state.favorites=isFavorite(k)?state.favorites.filter(x=>x!==k):[...state.favorites,k];saveFavorites();renderProducts();renderHomeSections();const b=$("#detail-favorite");if(b){b.classList.toggle("is-favorite",isFavorite(k));b.innerHTML=isFavorite(k)?'<i class="fa-solid fa-heart"></i> Salvo nos favoritos':'<i class="fa-regular fa-heart"></i> Adicionar aos favoritos';}}
 
   async function loadJson(path) {
     const response = await fetch(path);
@@ -8,24 +12,11 @@
     return response.json();
   }
 
-  function renderCategories() {
-    const container = $("#categorias-container");
-    if (!container) return;
-    const categories = [{ id: "todas", nome: "Todos" }, ...(state.catalog.categorias || [])];
-    container.replaceChildren();
-    categories.forEach((category) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = `category-pill${state.category === category.id ? " active" : ""}`;
-      button.textContent = category.nome;
-      button.addEventListener("click", () => {
-        state.category = category.id;
-        renderCategories();
-        renderProducts();
-      });
-      container.append(button);
-    });
-  }
+  function renderCategories(){const box=$("#categorias-container");if(!box)return;const cats=[{id:"todas",nome:"Todas as peças"},...(state.catalog.categorias||[])];box.replaceChildren();cats.forEach(c=>{const b=document.createElement("button");b.type="button";b.className="category-pill"+(state.category===c.id?" active":"");b.textContent=c.nome;b.addEventListener("click",()=>{state.category=c.id;renderCategories();renderProducts();});box.append(b);});}
+  function makeProductCard(p){const card=document.createElement("article");card.className="product-card";const link=document.createElement("a");link.className="product-card-link";link.href=`produto.html?id=${encodeURIComponent(p.id)}`;const gallery=document.createElement("div");gallery.className="product-gallery";const imgs=p.imagens||[];if(imgs.length){const im=document.createElement("img");im.className="product-image";im.src=imgs[0];im.alt=p.nome+" — foto 1";im.loading="lazy";gallery.append(im);}if(p.lancamento){const badge=document.createElement("span");badge.className="product-launch-badge";badge.textContent="NOVO LANÇAMENTO";gallery.append(badge);}const info=document.createElement("div");info.className="product-info";const cat=document.createElement("div");cat.className="product-category";cat.textContent=state.catalog.categorias.find(c=>c.id===p.categoria)?.nome||"Coleção Ornato";const name=document.createElement("h3");name.textContent=p.nome;const desc=document.createElement("p");desc.textContent=p.descricao||"";const price=document.createElement("div");price.className="product-price";price.textContent=p.preco||"Consulte informações";info.append(cat,name,desc,price);link.append(gallery,info);const fav=document.createElement("button");fav.type="button";fav.className="favorite-button"+(isFavorite(p.id)?" is-favorite":"");fav.setAttribute("aria-label",isFavorite(p.id)?"Remover dos favoritos":"Adicionar aos favoritos");fav.innerHTML=isFavorite(p.id)?'<i class="fa-solid fa-heart"></i>':'<i class="fa-regular fa-heart"></i>';fav.addEventListener("click",()=>toggleFavorite(p.id));card.append(link,fav);return card;}
+  function renderProducts(){const box=$("#produtos-container");if(!box)return;box.replaceChildren();const list=(state.catalog.produtos||[]).filter(p=>(state.category==="todas"||p.categoria===state.category)&&(!state.favoritesOnly||isFavorite(p.id))&&(!state.search||[p.nome,p.descricao,p.categoria].join(" ").toLocaleLowerCase("pt-BR").includes(state.search))&&(state.size==="todos"||(p.tamanhos||[]).includes(state.size)));if(!list.length){const e=document.createElement("p");e.className="empty-products";e.textContent=state.favoritesOnly?"Você ainda não salvou favoritos. Toque no coração de uma peça para guardá-la aqui.":"Nenhum produto encontrado com esses filtros.";box.append(e);return;}list.forEach(p=>box.append(makeProductCard(p)));}
+  function setupCatalogControls(){const s=$("#catalog-search");if(s)s.addEventListener("input",()=>{state.search=s.value.trim().toLocaleLowerCase("pt-BR");renderProducts();});const z=$("#catalog-size");if(z)z.addEventListener("change",()=>{state.size=z.value;renderProducts();});const b=$("#favorites-filter");if(b)b.addEventListener("click",()=>{state.favoritesOnly=!state.favoritesOnly;b.classList.toggle("active",state.favoritesOnly);b.innerHTML=state.favoritesOnly?'<i class="fa-solid fa-heart"></i> Exibindo favoritos':'<i class="fa-regular fa-heart"></i> Meus favoritos';renderProducts();});if(location.hash==="#favoritos")state.favoritesOnly=true;}
+  function renderHomeSections(){const n=$("#home-novidades");if(n){n.replaceChildren();(state.catalog.produtos||[]).filter(p=>p.lancamento).slice(0,4).forEach(p=>n.append(makeProductCard(p)));}const r=$("#home-recomendados");if(r){r.replaceChildren();(state.catalog.produtos||[]).filter(p=>!p.lancamento).slice(0,4).forEach(p=>r.append(makeProductCard(p)));}}
 
   function renderProducts() {
     const container = $("#produtos-container");
@@ -86,125 +77,17 @@
     });
   }
 
-  function renderProductDetail() {
-    const container = $("#produto-detalhe");
-    if (!container) return;
-    const params = new URLSearchParams(window.location.search);
-    const productId = params.get("id");
-    const product = (state.catalog.produtos || []).find((item) => String(item.id) === String(productId));
-    if (!product) {
-      container.innerHTML = '<div class="product-not-found"><span class="section-kicker">SELEÇÃO ORNATO</span><h1>Produto não encontrado.</h1><p>Este item pode não estar mais disponível no catálogo.</p><a class="button button-dark" href="produtos.html">Voltar aos produtos <i class="fa-solid fa-arrow-right"></i></a></div>';
-      document.title = "Produto não encontrado | Ornato";
-      return;
-    }
-
-    document.title = `${product.nome} | Ornato — Moda feminina`;
-    const categoryName = state.catalog.categorias.find((item) => item.id === product.categoria)?.nome || "Coleção Ornato";
-    const images = Array.isArray(product.imagens) && product.imagens.length
-      ? product.imagens
-      : (product.imagem ? [product.imagem] : []);
-
-    const layout = document.createElement("div");
-    layout.className = "product-detail-layout";
-    const gallery = document.createElement("div");
-    gallery.className = "product-detail-gallery";
-    const imageStage = document.createElement("div");
-    imageStage.className = "product-image-stage";
-    const mainImage = document.createElement("img");
-    mainImage.className = "product-main-image";
-    mainImage.alt = product.nome || "Produto Ornato";
-    const imageControls = document.createElement("div");
-    imageControls.className = "product-image-controls";
-    const previous = document.createElement("button");
-    previous.type = "button";
-    previous.className = "gallery-arrow gallery-previous";
-    previous.setAttribute("aria-label", "Ver foto anterior");
-    previous.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
-    const next = document.createElement("button");
-    next.type = "button";
-    next.className = "gallery-arrow gallery-next";
-    next.setAttribute("aria-label", "Ver próxima foto");
-    next.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
-    const counter = document.createElement("span");
-    counter.className = "gallery-counter";
-    imageControls.append(previous, counter, next);
-    imageStage.append(mainImage, imageControls);
-    const thumbnails = document.createElement("div");
-    thumbnails.className = "product-thumbnails";
-    thumbnails.setAttribute("aria-label", "Selecionar foto do produto");
-    let activeImage = 0;
-    const validImages = images.slice();
-    function showImage(index) {
-      if (!validImages.length) {
-        mainImage.hidden = true;
-        imageControls.hidden = true;
-        thumbnails.hidden = true;
-        return;
-      }
-      activeImage = (index + validImages.length) % validImages.length;
-      mainImage.src = validImages[activeImage];
-      mainImage.alt = `${product.nome} — foto ${activeImage + 1}`;
-      mainImage.hidden = false;
-      counter.textContent = `${activeImage + 1} / ${validImages.length}`;
-      imageControls.hidden = validImages.length < 2;
-      thumbnails.hidden = validImages.length < 2;
-      Array.from(thumbnails.children).forEach((button, buttonIndex) => {
-        button.classList.toggle("active", buttonIndex === activeImage);
-        button.setAttribute("aria-pressed", String(buttonIndex === activeImage));
-      });
-    }
-    validImages.forEach((src, index) => {
-      const thumbnail = document.createElement("button");
-      thumbnail.type = "button";
-      thumbnail.className = "product-thumbnail";
-      thumbnail.setAttribute("aria-label", `Selecionar foto ${index + 1}`);
-      thumbnail.setAttribute("aria-pressed", "false");
-      const thumbImage = document.createElement("img");
-      thumbImage.src = src;
-      thumbImage.alt = "";
-      thumbImage.loading = "lazy";
-      thumbnail.append(thumbImage);
-      thumbnail.addEventListener("click", () => showImage(index));
-      thumbnails.append(thumbnail);
-    });
-    previous.addEventListener("click", () => showImage(activeImage - 1));
-    next.addEventListener("click", () => showImage(activeImage + 1));
-    showImage(0);
-    gallery.append(imageStage, thumbnails);
-
-    const info = document.createElement("div");
-    info.className = "product-detail-info";
-    const breadcrumb = document.createElement("div");
-    breadcrumb.className = "product-detail-breadcrumb";
-    breadcrumb.textContent = `Produtos / ${categoryName}`;
-    const title = document.createElement("h1");
-    title.textContent = product.nome || "Produto Ornato";
-    const price = document.createElement("div");
-    price.className = "product-detail-price";
-    price.textContent = product.preco || "Consulte informações";
-    const descriptionTitle = document.createElement("h2");
-    descriptionTitle.textContent = "Sobre a peça";
-    const description = document.createElement("p");
-    description.className = "product-detail-description";
-    description.textContent = product.descricao || "Uma escolha especial da seleção Ornato.";
-    const note = document.createElement("p");
-    note.className = "product-detail-note";
-    note.textContent = "Entre em contato com a Ornato para consultar disponibilidade e detalhes desta peça.";
-    const buy = document.createElement("button");
-    buy.type = "button";
-    buy.className = "product-buy-button";
-    buy.textContent = "Comprar";
-    buy.setAttribute("aria-label", "Comprar — botão demonstrativo, sem funcionalidade");
-    const back = document.createElement("a");
-    back.className = "product-back-link";
-    back.href = "produtos.html";
-    back.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Voltar para a coleção';
-    info.append(breadcrumb, title, price, descriptionTitle, description, note, buy, back);
-    layout.append(gallery, info);
-    container.replaceChildren(layout);
+  function renderProductDetail(){const box=$("#produto-detalhe");if(!box)return;const id=new URLSearchParams(location.search).get("id");const p=(state.catalog.produtos||[]).find(x=>String(x.id)===String(id));if(!p){box.innerHTML='<div class="product-not-found"><h1>Produto não encontrado.</h1><a class="button button-dark" href="produtos.html">Voltar aos produtos</a></div>';return;}document.title=p.nome+" | Ornato — O luxo de ser você";
+    const layout=document.createElement("div");layout.className="product-detail-layout";const gallery=document.createElement("div");gallery.className="product-detail-gallery";const stage=document.createElement("div");stage.className="product-image-stage";const main=document.createElement("img");main.className="product-main-image";main.alt=p.nome;const controls=document.createElement("div");controls.className="product-image-controls";const prev=document.createElement("button");prev.type="button";prev.className="gallery-arrow gallery-previous";prev.setAttribute("aria-label","Foto anterior");prev.innerHTML='<i class="fa-solid fa-chevron-left"></i>';const next=document.createElement("button");next.type="button";next.className="gallery-arrow gallery-next";next.setAttribute("aria-label","Próxima foto");next.innerHTML='<i class="fa-solid fa-chevron-right"></i>';const count=document.createElement("span");count.className="gallery-counter";controls.append(prev,count,next);stage.append(main,controls);const thumbs=document.createElement("div");thumbs.className="product-thumbnails";const imgs=p.imagens||[];let active=0;function show(i){if(!imgs.length){main.hidden=true;controls.hidden=true;thumbs.hidden=true;return;}active=(i+imgs.length)%imgs.length;main.src=imgs[active];main.alt=p.nome+" — foto "+(active+1);count.textContent=(active+1)+" / "+imgs.length;controls.hidden=imgs.length<2;thumbs.hidden=imgs.length<2;Array.from(thumbs.children).forEach((b,n)=>{b.classList.toggle("active",n===active);b.setAttribute("aria-pressed",String(n===active));});}imgs.forEach((src,i)=>{const b=document.createElement("button");b.type="button";b.className="product-thumbnail";b.setAttribute("aria-label","Selecionar foto "+(i+1));b.setAttribute("aria-pressed","false");const im=document.createElement("img");im.src=src;im.alt="";im.loading="lazy";b.append(im);b.addEventListener("click",()=>show(i));thumbs.append(b);});prev.addEventListener("click",()=>show(active-1));next.addEventListener("click",()=>show(active+1));show(0);gallery.append(stage,thumbs);
+    const info=document.createElement("div");info.className="product-detail-info";const crumb=document.createElement("div");crumb.className="product-detail-breadcrumb";crumb.textContent="ORNATO / "+(state.catalog.categorias.find(c=>c.id===p.categoria)?.nome||"Coleção");const title=document.createElement("h1");title.textContent=p.nome;const price=document.createElement("div");price.className="product-detail-price";price.textContent=p.preco;const tag=document.createElement("span");tag.className="demo-tag";tag.textContent="Disponibilidade demonstrativa";const h=document.createElement("h2");h.textContent="Sobre a peça";const desc=document.createElement("p");desc.className="product-detail-description";desc.textContent=p.descricao;const st=document.createElement("h3");st.className="size-selector-title";st.textContent="Selecione o tamanho";const sizes=document.createElement("div");sizes.className="size-options";let selected="";(p.tamanhos||["P","M","G","GG"]).forEach(s=>{const b=document.createElement("button");b.type="button";b.className="size-option";b.textContent=s;b.addEventListener("click",()=>{selected=s;Array.from(sizes.children).forEach(x=>x.classList.toggle("active",x===b));});sizes.append(b);});const note=document.createElement("p");note.className="product-detail-note";note.textContent="Tamanhos e disponibilidade são fictícios, apenas para demonstração.";const stock=document.createElement("p");stock.className="stock-demo";stock.textContent="Disponibilidade fictícia: "+(p.disponibilidade_demo||"Consulte a loja");const fav=document.createElement("button");fav.type="button";fav.id="detail-favorite";fav.className="favorite-detail-button"+(isFavorite(p.id)?" is-favorite":"");fav.innerHTML=isFavorite(p.id)?'<i class="fa-solid fa-heart"></i> Salvo nos favoritos':'<i class="fa-regular fa-heart"></i> Adicionar aos favoritos';fav.addEventListener("click",()=>toggleFavorite(p.id));
+    const form=document.createElement("form");form.className="order-request-form";const fh=document.createElement("h2");fh.textContent="Solicite seu pedido";const lab=t=>{const l=document.createElement("label");l.textContent=t;return l;};const name=document.createElement("input");name.required=true;name.placeholder="Seu nome";const phone=document.createElement("input");phone.required=true;phone.inputMode="tel";phone.placeholder="Seu telefone";const qty=document.createElement("input");qty.type="number";qty.min="1";qty.max="10";qty.value="1";qty.required=true;const delivery=document.createElement("select");delivery.innerHTML='<option value="Entrega — Brasil">Entrega — Brasil</option><option value="Retirada na loja principal — Rio de Janeiro">Retirada na loja principal — Rio de Janeiro</option>';const address=document.createElement("input");address.placeholder="Cidade, bairro e endereço";const payment=document.createElement("select");payment.innerHTML='<option>PIX</option><option>Cartão de crédito</option><option>Cartão de débito</option><option>Dinheiro na retirada</option>';const disclaimer=document.createElement("p");disclaimer.className="order-disclaimer";disclaimer.textContent="Formas de pagamento e disponibilidade são ilustrativas. O pedido será encaminhado pelo WhatsApp para confirmação; nenhum pagamento será cobrado neste site.";const submit=document.createElement("button");submit.type="submit";submit.className="product-buy-button";submit.innerHTML='Solicitar pedido <i class="fa-brands fa-whatsapp"></i>';form.append(fh,lab("Seu nome"),name,lab("Telefone para contato"),phone,lab("Quantidade"),qty,lab("Recebimento"),delivery,lab("Endereço para entrega (se aplicável)"),address,lab("Pagamento pretendido — demonstrativo"),payment,disclaimer,submit);form.addEventListener("submit",e=>{e.preventDefault();if(!selected){alert("Selecione um tamanho antes de continuar.");return;}if(delivery.value.startsWith("Entrega")&&!address.value.trim()){alert("Informe a cidade e o endereço para entrega.");address.focus();return;}const msg=["Olá! Gostaria de solicitar um pedido pela loja Ornato.","","Produto: "+p.nome,"Preço exibido: "+p.preco,"Tamanho: "+selected,"Quantidade: "+qty.value,"Nome: "+name.value,"Telefone: "+phone.value,"Recebimento: "+delivery.value,"Endereço: "+(address.value||"A combinar"),"Pagamento pretendido: "+payment.value,"","Estou ciente de que estoque e pagamentos são demonstrativos e desejo confirmar os detalhes com a loja."].join("\n");window.open("https://wa.me/5522998300865?text="+encodeURIComponent(msg),"_blank","noopener");});
+    const back=document.createElement("a");back.className="product-back-link";back.href="produtos.html";back.textContent="← Voltar para a coleção";info.append(crumb,title,price,tag,h,desc,st,sizes,note,stock,fav,form,back);layout.append(gallery,info);
+    const reviews=document.createElement("section");reviews.className="product-reviews";const rh=document.createElement("div");rh.className="reviews-heading";rh.innerHTML='<div><span class="section-kicker">VOZES ORNATO</span><h2>O que dizem sobre <em>esta peça</em></h2></div><span class="demo-tag">Comentários fictícios para demonstração</span>';const grid=document.createElement("div");grid.className="reviews-grid";["O caimento é elegante e deixa a produção muito especial.","Adorei a proposta da peça. Os detalhes fazem toda a diferença.","Uma opção versátil para compor um visual sofisticado.","A cor é linda e combina com diferentes ocasiões.","Uma peça que transmite elegância sem esforço."].forEach((txt,i)=>{const card=document.createElement("article");card.className="review-card";const stars=document.createElement("div");stars.className="review-stars";stars.textContent="★★★★★";const who=document.createElement("span");who.className="review-demo-label";who.textContent="AVALIAÇÃO ILUSTRATIVA "+(i+1);const body=document.createElement("p");body.textContent=txt;card.append(stars,who,body);grid.append(card);});reviews.append(rh,grid);
+    const related=document.createElement("section");related.className="related-products";const rt=document.createElement("div");rt.className="section-kicker";rt.textContent="VOCÊ TAMBÉM PODE GOSTAR";const rg=document.createElement("div");rg.className="products-grid";(state.catalog.produtos||[]).filter(x=>x.id!==p.id&&x.categoria===p.categoria).slice(0,3).forEach(x=>rg.append(makeProductCard(x)));related.append(rt,rg);box.replaceChildren(layout,reviews,related);
   }
 
   function appendMessage(text, role) {
+    if(role==="bot-message") text=String(text).replace(/^#{1,6}\s*/gm,"").replace(/^\s*[-*]\s+/gm,"• ");
     const messages = $("#chat-messages");
     const bubble = document.createElement("div");
     bubble.className = `message ${role}`;
@@ -336,7 +219,9 @@
       const details = [contact.whatsapp, contact.email, contact.horario].filter(Boolean);
       const footerContact = $("#footer-contact"); if (footerContact) footerContact.textContent = details.length ? details.join(" • ") : "Entre em contato para saber mais sobre a Ornato.";
       renderCategories();
+      setupCatalogControls();
       renderProducts();
+      renderHomeSections();
       renderProductDetail();
     } catch (error) {
       console.error("Erro ao carregar os dados do site:", error);

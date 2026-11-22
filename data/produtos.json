@@ -19,7 +19,15 @@
       "imagens": [
         "assets/produtos/01429e38-b160-4737-a6a5-0dd0da19a264.jpg",
         "assets/produtos/895797cd-5ff5-45e8-aede-3abccbd1073c.jpg"
-      ]
+      ],
+      "tamanhos": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "disponibilidade_demo": "P: disponível · M: disponível · G: últimas unidades · GG: disponível",
+      "lancamento": true
     },
     {
       "id": 2,
@@ -30,7 +38,15 @@
       "imagens": [
         "assets/produtos/0295e7fc-b4f7-417e-b967-2a00f5eba420.jpg",
         "assets/produtos/de42a66f-4afc-44dd-a73f-57c90ccd3637.jpg"
-      ]
+      ],
+      "tamanhos": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "disponibilidade_demo": "P: últimas unidades · M: disponível · G: disponível · GG: disponível",
+      "lancamento": true
     },
     {
       "id": 3,
@@ -41,7 +57,15 @@
       "imagens": [
         "assets/produtos/13a06969-ef5e-43a5-8430-61446d70788b.jpg",
         "assets/produtos/6b0b66b2-484b-4e79-ae71-328e44c8a636.jpg"
-      ]
+      ],
+      "tamanhos": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "disponibilidade_demo": "P: disponível · M: últimas unidades · G: disponível · GG: disponível",
+      "lancamento": true
     },
     {
       "id": 4,
@@ -52,7 +76,15 @@
       "imagens": [
         "assets/produtos/27de2be9-a01b-4763-93c5-a754949978f1.jpg",
         "assets/produtos/e6e383a8-8f3f-4183-b13f-e7ac67d4c69f.jpg"
-      ]
+      ],
+      "tamanhos": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "disponibilidade_demo": "P: disponível · M: disponível · G: disponível · GG: últimas unidades",
+      "lancamento": false
     },
     {
       "id": 5,
@@ -63,7 +95,15 @@
       "imagens": [
         "assets/produtos/3cac1ac5-7ae3-42cc-8e6a-21208fe42569.jpg",
         "assets/produtos/b532c702-dae1-4333-abcf-fe67b257e878.jpg"
-      ]
+      ],
+      "tamanhos": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "disponibilidade_demo": "P: últimas unidades · M: disponível · G: disponível · GG: disponível",
+      "lancamento": false
     },
     {
       "id": 6,
@@ -74,7 +114,15 @@
       "imagens": [
         "assets/produtos/721c415b-5a89-414a-80e7-eb8562943613.jpg",
         "assets/produtos/d65f7b68-82c8-43eb-9105-53a3133baca7.jpg"
-      ]
+      ],
+      "tamanhos": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "disponibilidade_demo": "P: disponível · M: disponível · G: últimas unidades · GG: disponível",
+      "lancamento": false
     },
     {
       "id": 7,
@@ -85,7 +133,15 @@
       "imagens": [
         "assets/produtos/a35e060d-244c-451f-811e-40bf7ed5f996.jpg",
         "assets/produtos/de86d188-140e-4562-b194-09335fc17663.jpg"
-      ]
+      ],
+      "tamanhos": [
+        "P",
+        "M",
+        "G",
+        "GG"
+      ],
+      "disponibilidade_demo": "P: disponível · M: disponível · G: disponível · GG: últimas unidades",
+      "lancamento": false
     }
   ]
 }
