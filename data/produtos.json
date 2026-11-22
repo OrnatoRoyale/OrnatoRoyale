@@ -21,10 +21,12 @@
         "assets/produtos/895797cd-5ff5-45e8-aede-3abccbd1073c.jpg"
       ],
       "tamanhos": [
+        "PP",
         "P",
         "M",
         "G",
-        "GG"
+        "GG",
+        "XG"
       ],
       "disponibilidade_demo": "P: disponível · M: disponível · G: últimas unidades · GG: disponível",
       "lancamento": true
@@ -40,10 +42,12 @@
         "assets/produtos/de42a66f-4afc-44dd-a73f-57c90ccd3637.jpg"
       ],
       "tamanhos": [
+        "PP",
         "P",
         "M",
         "G",
-        "GG"
+        "GG",
+        "XG"
       ],
       "disponibilidade_demo": "P: últimas unidades · M: disponível · G: disponível · GG: disponível",
       "lancamento": true
@@ -59,10 +63,12 @@
         "assets/produtos/6b0b66b2-484b-4e79-ae71-328e44c8a636.jpg"
       ],
       "tamanhos": [
+        "PP",
         "P",
         "M",
         "G",
-        "GG"
+        "GG",
+        "XG"
       ],
       "disponibilidade_demo": "P: disponível · M: últimas unidades · G: disponível · GG: disponível",
       "lancamento": true
@@ -78,10 +84,12 @@
         "assets/produtos/e6e383a8-8f3f-4183-b13f-e7ac67d4c69f.jpg"
       ],
       "tamanhos": [
+        "PP",
         "P",
         "M",
         "G",
-        "GG"
+        "GG",
+        "XG"
       ],
       "disponibilidade_demo": "P: disponível · M: disponível · G: disponível · GG: últimas unidades",
       "lancamento": false
@@ -97,10 +105,12 @@
         "assets/produtos/b532c702-dae1-4333-abcf-fe67b257e878.jpg"
       ],
       "tamanhos": [
+        "PP",
         "P",
         "M",
         "G",
-        "GG"
+        "GG",
+        "XG"
       ],
       "disponibilidade_demo": "P: últimas unidades · M: disponível · G: disponível · GG: disponível",
       "lancamento": false
@@ -116,10 +126,12 @@
         "assets/produtos/d65f7b68-82c8-43eb-9105-53a3133baca7.jpg"
       ],
       "tamanhos": [
+        "PP",
         "P",
         "M",
         "G",
-        "GG"
+        "GG",
+        "XG"
       ],
       "disponibilidade_demo": "P: disponível · M: disponível · G: últimas unidades · GG: disponível",
       "lancamento": false
@@ -135,10 +147,12 @@
         "assets/produtos/de86d188-140e-4562-b194-09335fc17663.jpg"
       ],
       "tamanhos": [
+        "PP",
         "P",
         "M",
         "G",
-        "GG"
+        "GG",
+        "XG"
       ],
       "disponibilidade_demo": "P: disponível · M: disponível · G: disponível · GG: últimas unidades",
       "lancamento": false
