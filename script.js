@@ -183,7 +183,7 @@ const related=document.createElement("section");related.className="related-produ
   async function init() {
     const logoVideo = document.querySelector(".ornato-logo-animation");
     if (logoVideo) {
-      const speedUp = () => { logoVideo.playbackRate = 1.25; };
+      const speedUp = () => { logoVideo.playbackRate = 1.50; };
       logoVideo.addEventListener("loadedmetadata", speedUp, { once: true });
       if (logoVideo.readyState >= 1) speedUp();
     }
