@@ -178,6 +178,7 @@ const related=document.createElement("section");related.className="related-produ
 
   async function init() {
     const year = $("#year"); if (year) year.textContent = new Date().getFullYear();
+    updateCartBadges();
     const menuToggle = $("#menu-toggle"); if (menuToggle) menuToggle.addEventListener("click", () => $("#main-nav")?.classList.toggle("open"));
     document.querySelectorAll("#main-nav a").forEach((link) => link.addEventListener("click", () => $("#main-nav")?.classList.remove("open")));
     setupChat();
