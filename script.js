@@ -1,6 +1,10 @@
 (() => {
   const $ = (selector) => document.querySelector(selector);
-  const state = { knowledge:null,catalog:{categorias:[],produtos:[]},history:[],busy:false,category:"todas",search:"",size:"todos",favoritesOnly:false,favorites:readFavorites() };
+  const state = { knowledge:null,catalog:{categorias:[],produtos:[]},history:[],busy:false,category:"todas",search:"",size:"todos",favoritesOnly:false,favorites:readFavorites(),cart:readCart() };
+  function readCart(){try{return JSON.parse(localStorage.getItem("ornato-carrinho")||"[]");}catch{return [];}}
+  function saveCart(){localStorage.setItem("ornato-carrinho",JSON.stringify(state.cart));updateCartBadges();}
+  function updateCartBadges(){document.querySelectorAll("[data-cart-count]").forEach(el=>{const n=state.cart.reduce((a,x)=>a+Number(x.quantity||1),0);el.textContent=n;el.hidden=n===0;});}
+  function addToCart(id,size="M",quantity=1){const p=state.catalog.produtos.find(x=>String(x.id)===String(id));if(!p)return;const found=state.cart.find(x=>String(x.id)===String(id)&&x.size===size);if(found)found.quantity+=Number(quantity);else state.cart.push({id:p.id,size,quantity:Number(quantity)});saveCart();}
   function readFavorites(){try{return JSON.parse(localStorage.getItem("ornato-favoritos")||"[]").map(String);}catch{return [];}}
   function saveFavorites(){localStorage.setItem("ornato-favoritos",JSON.stringify(state.favorites));}
   function isFavorite(id){return state.favorites.includes(String(id));}
@@ -12,70 +16,13 @@
     return response.json();
   }
 
+  function normalizeSearch(s){return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR");}
+  function searchScore(p,q){const terms=normalizeSearch(q).split(/\s+/).filter(Boolean);const text=normalizeSearch([p.nome,p.descricao,p.categoria,(state.catalog.categorias.find(c=>c.id===p.categoria)||{}).nome].join(" "));let score=0;terms.forEach(t=>{if(text.includes(t))score+=4;else if(text.split(/\s+/).some(w=>w.startsWith(t)||t.startsWith(w)))score+=2;});return score;}
   function renderCategories(){const box=$("#categorias-container");if(!box)return;const cats=[{id:"todas",nome:"Todas as peças"},...(state.catalog.categorias||[])];box.replaceChildren();cats.forEach(c=>{const b=document.createElement("button");b.type="button";b.className="category-pill"+(state.category===c.id?" active":"");b.textContent=c.nome;b.addEventListener("click",()=>{state.category=c.id;renderCategories();renderProducts();});box.append(b);});}
-  function makeProductCard(p){const card=document.createElement("article");card.className="product-card";const link=document.createElement("a");link.className="product-card-link";link.href=`produto.html?id=${encodeURIComponent(p.id)}`;const gallery=document.createElement("div");gallery.className="product-gallery";const imgs=p.imagens||[];if(imgs.length){const im=document.createElement("img");im.className="product-image";im.src=imgs[0];im.alt=p.nome+" — foto 1";im.loading="lazy";gallery.append(im);}if(p.lancamento){const badge=document.createElement("span");badge.className="product-launch-badge";badge.textContent="NOVO LANÇAMENTO";gallery.append(badge);}const info=document.createElement("div");info.className="product-info";const cat=document.createElement("div");cat.className="product-category";cat.textContent=state.catalog.categorias.find(c=>c.id===p.categoria)?.nome||"Coleção Ornato";const name=document.createElement("h3");name.textContent=p.nome;const desc=document.createElement("p");desc.textContent=p.descricao||"";const price=document.createElement("div");price.className="product-price";price.textContent=p.preco||"Consulte informações";info.append(cat,name,desc,price);link.append(gallery,info);const fav=document.createElement("button");fav.type="button";fav.className="favorite-button"+(isFavorite(p.id)?" is-favorite":"");fav.setAttribute("aria-label",isFavorite(p.id)?"Remover dos favoritos":"Adicionar aos favoritos");fav.innerHTML=isFavorite(p.id)?'<i class="fa-solid fa-heart"></i>':'<i class="fa-regular fa-heart"></i>';fav.addEventListener("click",()=>toggleFavorite(p.id));card.append(link,fav);return card;}
-  function renderProducts(){const box=$("#produtos-container");if(!box)return;box.replaceChildren();const list=(state.catalog.produtos||[]).filter(p=>(state.category==="todas"||p.categoria===state.category)&&(!state.favoritesOnly||isFavorite(p.id))&&(!state.search||[p.nome,p.descricao,p.categoria].join(" ").toLocaleLowerCase("pt-BR").includes(state.search))&&(state.size==="todos"||(p.tamanhos||[]).includes(state.size)));if(!list.length){const e=document.createElement("p");e.className="empty-products";e.textContent=state.favoritesOnly?"Você ainda não salvou favoritos. Toque no coração de uma peça para guardá-la aqui.":"Nenhum produto encontrado com esses filtros.";box.append(e);return;}list.forEach(p=>box.append(makeProductCard(p)));}
+  function makeProductCard(p){const card=document.createElement("article");card.className="product-card";const link=document.createElement("a");link.className="product-card-link";link.href=`produto.html?id=${encodeURIComponent(p.id)}`;const gallery=document.createElement("div");gallery.className="product-gallery";const imgs=p.imagens||[];if(imgs.length){const im=document.createElement("img");im.className="product-image";im.src=imgs[0];im.alt=p.nome+" — foto 1";im.loading="lazy";gallery.append(im);}if(p.lancamento){const badge=document.createElement("span");badge.className="product-launch-badge";badge.textContent="NOVO LANÇAMENTO";gallery.append(badge);}const info=document.createElement("div");info.className="product-info";const cat=document.createElement("div");cat.className="product-category";cat.textContent=state.catalog.categorias.find(c=>c.id===p.categoria)?.nome||"Coleção Ornato";const name=document.createElement("h3");name.textContent=p.nome;const desc=document.createElement("p");desc.textContent=p.descricao||"";const price=document.createElement("div");price.className="product-price";price.textContent=p.preco||"Consulte informações";info.append(cat,name,desc,price);link.append(gallery,info);const fav=document.createElement("button");fav.type="button";fav.className="favorite-button"+(isFavorite(p.id)?" is-favorite":"");fav.setAttribute("aria-label",isFavorite(p.id)?"Remover dos favoritos":"Adicionar aos favoritos");fav.innerHTML=isFavorite(p.id)?'<i class="fa-solid fa-heart"></i>':'<i class="fa-regular fa-heart"></i>';fav.addEventListener("click",()=>toggleFavorite(p.id));const cart=document.createElement("button");cart.type="button";cart.className="card-cart-button";cart.title="Adicionar ao carrinho";cart.innerHTML='<i class="fa-solid fa-cart-plus"></i>';cart.addEventListener("click",()=>addToCart(p.id,(p.tamanhos||["PP","P","M"])[2]||"M",1));card.append(link,fav,cart);return card;}
+  function renderProducts(){const box=$("#produtos-container");if(!box)return;box.replaceChildren();const list=(state.catalog.produtos||[]).filter(p=>(state.category==="todas"||p.categoria===state.category)&&(!state.favoritesOnly||isFavorite(p.id))&&(!state.search||searchScore(p,state.search)>0)&&(state.size==="todos"||(p.tamanhos||[]).includes(state.size)));if(!list.length){const e=document.createElement("p");e.className="empty-products";e.textContent=state.favoritesOnly?"Você ainda não salvou favoritos. Toque no coração de uma peça para guardá-la aqui.":"Nenhum produto encontrado com esses filtros.";box.append(e);return;}list.forEach(p=>box.append(makeProductCard(p)));}
   function setupCatalogControls(){const s=$("#catalog-search");if(s)s.addEventListener("input",()=>{state.search=s.value.trim().toLocaleLowerCase("pt-BR");renderProducts();});const z=$("#catalog-size");if(z)z.addEventListener("change",()=>{state.size=z.value;renderProducts();});const b=$("#favorites-filter");if(b)b.addEventListener("click",()=>{state.favoritesOnly=!state.favoritesOnly;b.classList.toggle("active",state.favoritesOnly);b.innerHTML=state.favoritesOnly?'<i class="fa-solid fa-heart"></i> Exibindo favoritos':'<i class="fa-regular fa-heart"></i> Meus favoritos';renderProducts();});if(location.hash==="#favoritos"){state.favoritesOnly=true;if(b){b.classList.add("active");b.innerHTML='<i class="fa-solid fa-heart"></i> Exibindo favoritos';}}}
   function renderHomeSections(){const n=$("#home-novidades");if(n){n.replaceChildren();(state.catalog.produtos||[]).filter(p=>p.lancamento).slice(0,4).forEach(p=>n.append(makeProductCard(p)));}const r=$("#home-recomendados");if(r){r.replaceChildren();(state.catalog.produtos||[]).filter(p=>!p.lancamento).slice(0,4).forEach(p=>r.append(makeProductCard(p)));}}
-
-  function renderProducts() {
-    const container = $("#produtos-container");
-    if (!container) return;
-    container.replaceChildren();
-    const products = (state.catalog.produtos || []).filter((product) =>
-      state.category === "todas" || product.categoria === state.category
-    );
-    if (!products.length) {
-      const empty = document.createElement("p");
-      empty.className = "empty-products";
-      empty.textContent = "Nenhum produto cadastrado nesta categoria ainda.";
-      container.append(empty);
-      return;
-    }
-    products.forEach((product) => {
-      const card = document.createElement("a");
-      card.className = "product-card";
-      card.href = `produto.html?id=${encodeURIComponent(product.id)}`;
-      card.setAttribute("aria-label", `Ver detalhes de ${product.nome || "produto"}`);
-      const gallery = document.createElement("div");
-      gallery.className = "product-gallery";
-      const images = Array.isArray(product.imagens) && product.imagens.length
-        ? product.imagens
-        : (product.imagem ? [product.imagem] : []);
-      if (images.length) {
-        images.forEach((src, index) => {
-          const image = document.createElement("img");
-          image.className = "product-image";
-          image.src = src;
-          image.alt = `${product.nome || "Produto Ornato"} — foto ${index + 1}`;
-          image.loading = "lazy";
-          image.onerror = () => { image.style.visibility = "hidden"; };
-          gallery.append(image);
-        });
-      } else {
-        const placeholder = document.createElement("div");
-        placeholder.className = "product-image";
-        placeholder.setAttribute("aria-hidden", "true");
-        gallery.append(placeholder);
-      }
-      card.append(gallery);
-      const info = document.createElement("div");
-      info.className = "product-info";
-      const category = document.createElement("div");
-      category.className = "product-category";
-      category.textContent = (state.catalog.categorias.find((item) => item.id === product.categoria)?.nome || product.categoria || "Ornato");
-      const name = document.createElement("h3");
-      name.textContent = product.nome || "Produto";
-      const description = document.createElement("p");
-      description.textContent = product.descricao || "";
-      const price = document.createElement("div");
-      price.className = "product-price";
-      price.textContent = product.preco || "Consulte informações";
-      info.append(category, name, description, price);
-      card.append(info);
-      container.append(card);
-    });
-  }
 
   function renderProductDetail(){
 const box=$("#produto-detalhe");if(!box)return;const id=new URLSearchParams(location.search).get("id");const p=state.catalog.produtos.find(x=>String(x.id)===String(id));if(!p){box.innerHTML='<h1>Produto não encontrado.</h1><a href="produtos.html">Voltar aos produtos</a>';return;}document.title=p.nome+" | Ornato — O luxo de ser você";
@@ -202,6 +149,9 @@ const related=document.createElement("section");related.className="related-produ
 
   function setupChat() {
     const body = $("#chat-body");
+    body.classList.add("is-hidden");
+    $("#chat-toggle").setAttribute("aria-expanded","false");
+    const initialIcon=$("#chat-minimize-icon");if(initialIcon)initialIcon.className="fa-solid fa-plus chat-chevron";
     const toggle = $("#chat-toggle");
     const icon = $("#chat-minimize-icon");
     toggle.addEventListener("click", () => {
