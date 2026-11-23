@@ -41,8 +41,22 @@ const related=document.createElement("section");related.className="related-produ
 
   function renderInspirations(){const box=$("#inspiration-grid");if(!box)return;box.replaceChildren();const intros=["Uma peça que transforma a ocasião em um momento especial, com caimento fluido e presença elegante.","Tons sofisticados e texturas que traduzem uma elegância contemporânea e feminina.","A delicadeza dos detalhes encontra uma presença marcante em uma composição refinada.","Uma proposta atemporal para mulheres que expressam sua própria essência.","Linhas elegantes e acabamento cuidadoso em uma curadoria especial.","O equilíbrio entre personalidade, refinamento e versatilidade.","A elegância aparece na escolha de cada detalhe."];state.catalog.produtos.forEach((p,i)=>{const card=document.createElement("article");card.className="inspiration-card";const a=document.createElement("a");a.href="produto.html?id="+encodeURIComponent(p.id);const im=document.createElement("img");im.src=(p.imagens||[])[0]||"";im.alt=p.nome;a.append(im);const body=document.createElement("div");const tag=document.createElement("span");tag.textContent=String(i+1).padStart(2,"0")+" · "+(p.categoria==="vestidos"?"ALTA-COSTURA FEMININA":"ELEGÂNCIA CONTEMPORÂNEA");const h=document.createElement("h2");h.textContent=p.nome;const desc=document.createElement("p");desc.textContent=intros[i%intros.length];const link=document.createElement("a");link.className="text-link";link.href=a.href;link.textContent="Conheça a peça →";body.append(tag,h,desc,link);card.append(a,body);box.append(card);});}
   function appendMessage(text, role) {
-    if(role==="bot-message") text=String(text).replace(/^#{1,6}\s*/gm,"").replace(/^\s*[-*]\s+/gm,"• ");
+    if(role==="bot-message") text=String(text)
+      .replace(/^#{1,6}\\s*/gm,"")
+      .replace(/^\\s*[-*+]\\s+/gm,"• ")
+      .replace(/\\*{1,3}([^\\n]*?)\\*{1,3}/g,"$1")
+      .replace(/(?<!\\w)\\*([^\\n*]+)\\*(?!\\w)/g,"$1")
+      .replace(/`([^`]+)`/g,"$1");
     const messages = $("#chat-messages");
+    const bubble = document.createElement("div");
+    bubble.className = `message ${role}`;
+    bubble.textContent = text;
+    messages.append(bubble);
+    messages.scrollTop = messages.scrollHeight;
+    return bubble;
+  }
+
+  const messages = $("#chat-messages");
     const bubble = document.createElement("div");
     bubble.className = `message ${role}`;
     // textContent prevents HTML supplied by a user or by the model from being executed.
