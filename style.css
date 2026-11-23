@@ -462,3 +462,9 @@ html{scroll-behavior:smooth}#contato{scroll-margin-top:0!important}
 .home-intro-copy h2 em{color:#173d32}
 .home-intro-copy p{max-width:470px;margin:0 0 24px;font-size:13px;line-height:1.9;color:var(--muted)}
 @media(max-width:760px){.home-intro-layout{grid-template-columns:1fr;gap:28px}.home-intro-media{max-width:620px;width:100%;margin:0 auto}.home-intro-copy{text-align:center}.home-intro-copy p{margin-left:auto;margin-right:auto}}
+
+/* Chatbot: área de leitura mais alta e atalhos predefinidos ocultos para liberar espaço. */
+.chat-body{height:min(455px,calc(100vh - 112px))!important;min-height:330px}
+.chat-suggestions{display:none!important}
+.message{font-size:11px;line-height:1.7}
+@media(max-width:560px){.chat-body{height:min(455px,calc(100vh - 105px))!important;min-height:300px}}
