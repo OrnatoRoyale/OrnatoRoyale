@@ -1,7 +1,24 @@
 {
   "nome_loja": "ORNATO",
   "slogan": "O luxo de ser você.",
-  "frases_marca": [],
+  "frases_marca": [
+    {
+      "texto": "A arte de vestir a elegância.",
+      "uso": "Campanhas e comunicação institucional"
+    },
+    {
+      "texto": "O extraordinário está em cada detalhe.",
+      "uso": "Qualidade e acabamento"
+    },
+    {
+      "texto": "Uma nova perspectiva sobre o luxo.",
+      "uso": "Posicionamento da marca"
+    },
+    {
+      "texto": "A moda passa. A elegância permanece.",
+      "uso": "Identidade atemporal"
+    }
+  ],
   "sobre": "A Ornato nasceu com o propósito de transformar a maneira como a mulher vive a moda e se relaciona com o luxo. Nossa essência é oferecer uma experiência sofisticada, unindo a elegância da alta-costura, a qualidade e a exclusividade a valores mais acessíveis. Em 2026, a Ornato representa a evolução de uma marca construída a partir de uma proposta clara: aproximar o universo da alta-costura de mais mulheres, tornando o luxo mais acessível, sem abrir mão da sofisticação, da qualidade e da atenção aos detalhes. Acreditamos que se vestir bem vai muito além das tendências; é uma forma de expressão, personalidade e autoestima. Por isso, nossa curadoria é pensada para mulheres que valorizam o refinamento, apreciam peças especiais e encontram na moda uma maneira de expressar sua própria essência. Cada escolha reflete nosso compromisso com a elegância, o acabamento e a beleza dos detalhes, reunindo referências clássicas e contemporâneas em uma seleção que valoriza a individualidade feminina. Mais do que uma marca de moda feminina, a Ornato é um convite para viver o luxo de uma nova maneira: com sofisticação, autenticidade e exclusividade, agora ao alcance de mais mulheres. ORNATO — O luxo de ser você.",
   "beneficios": [
     "Moda feminina com inspiração na alta-costura",
@@ -64,6 +81,18 @@
     {
       "pergunta": "Qual é o horário de atendimento?",
       "resposta": "Segunda a sábado, das 9h às 18h (horário de Brasília). Domingos e feriados: fechado."
+    },
+    {
+      "pergunta": "Qual é o propósito da Ornato?",
+      "resposta": "Aproximar o universo da alta-costura de mais mulheres, com elegância, qualidade e exclusividade a valores mais acessíveis."
+    },
+    {
+      "pergunta": "O que diferencia a curadoria Ornato?",
+      "resposta": "A curadoria une referências clássicas e contemporâneas, elegância, qualidade, exclusividade e atenção aos detalhes, com valores mais acessíveis."
+    },
+    {
+      "pergunta": "Qual é o slogan da marca?",
+      "resposta": "ORNATO — O luxo de ser você."
     }
   ]
 }
