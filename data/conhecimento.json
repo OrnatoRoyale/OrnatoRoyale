@@ -1,45 +1,25 @@
 {
   "nome_loja": "ORNATO",
   "slogan": "O luxo de ser você.",
-  "frases_marca": [
-    {
-      "texto": "O luxo de ser você.",
-      "uso": "Slogan principal da marca"
-    },
-    {
-      "texto": "A arte de vestir a elegância.",
-      "uso": "Campanhas e comunicação institucional"
-    },
-    {
-      "texto": "O extraordinário está em cada detalhe.",
-      "uso": "Qualidade e acabamento"
-    },
-    {
-      "texto": "Uma nova perspectiva sobre o luxo.",
-      "uso": "Posicionamento da marca"
-    },
-    {
-      "texto": "A moda passa. A elegância permanece.",
-      "uso": "Identidade atemporal"
-    }
-  ],
+  "frases_marca": [],
   "sobre": "A Ornato nasceu com o propósito de transformar a maneira como a mulher vive a moda e se relaciona com o luxo. Nossa essência é oferecer uma experiência sofisticada, unindo a elegância da alta-costura, a qualidade e a exclusividade a valores mais acessíveis. Em 2026, a Ornato representa a evolução de uma marca construída a partir de uma proposta clara: aproximar o universo da alta-costura de mais mulheres, tornando o luxo mais acessível, sem abrir mão da sofisticação, da qualidade e da atenção aos detalhes. Acreditamos que se vestir bem vai muito além das tendências; é uma forma de expressão, personalidade e autoestima. Por isso, nossa curadoria é pensada para mulheres que valorizam o refinamento, apreciam peças especiais e encontram na moda uma maneira de expressar sua própria essência. Cada escolha reflete nosso compromisso com a elegância, o acabamento e a beleza dos detalhes, reunindo referências clássicas e contemporâneas em uma seleção que valoriza a individualidade feminina. Mais do que uma marca de moda feminina, a Ornato é um convite para viver o luxo de uma nova maneira: com sofisticação, autenticidade e exclusividade, agora ao alcance de mais mulheres. ORNATO — O luxo de ser você.",
   "beneficios": [
-    "Curadoria de moda feminina",
-    "Elegância e sofisticação acessíveis",
-    "Atenção aos detalhes",
-    "Entrega para todo o Brasil",
-    "Retirada na loja principal no Rio de Janeiro"
+    "Moda feminina com inspiração na alta-costura",
+    "Elegância e sofisticação a valores mais acessíveis",
+    "Curadoria que valoriza a individualidade feminina",
+    "Envio para todo o Brasil",
+    "Opção de retirada na loja principal no Rio de Janeiro"
   ],
   "atendimento": {
-    "whatsapp": "5522998300865",
+    "whatsapp": "552288830065",
     "email": "ornato.oficial@gmail.com",
-    "horario": "Segunda a sábado, das 9h às 18h (horário de Brasília). Domingos e feriados: fechado."
+    "horario": "Segunda a sábado, das 9h às 18h (horário de Brasília). Domingos e feriados: fechado.",
+    "telefone_formatado": "+55 22 8883-0065"
   },
   "localizacao": {
     "cidade": "Rio de Janeiro, RJ",
-    "entrega": "Envio para todo o Brasil",
-    "retirada": "Retirada na loja principal no Rio de Janeiro. O endereço será informado na confirmação."
+    "entrega": "Envio para todo o Brasil.",
+    "retirada": "Também é possível retirar na loja principal no Rio de Janeiro."
   },
   "pagamento": {
     "opcoes": [
@@ -48,7 +28,7 @@
       "Cartão de débito",
       "Dinheiro na retirada"
     ],
-    "observacao": "Opções ilustrativas para demonstração; confirme com a loja."
+    "observacao": "As opções de pagamento são confirmadas no atendimento."
   },
   "politica_troca": "Para solicitar troca ou devolução, entre em contato em até 7 dias corridos após o recebimento. A peça deve estar sem sinais de uso, com etiquetas e embalagem originais. A equipe orientará os próximos passos conforme a legislação aplicável.",
   "missao": "Aproximar o universo da alta-costura de mais mulheres, com elegância, qualidade e exclusividade a valores mais acessíveis.",
@@ -59,5 +39,31 @@
     "Elegância: unir referências clássicas e contemporâneas.",
     "Acessibilidade: aproximar a sofisticação de mais mulheres."
   ],
-  "observacao": "Tamanhos demonstrativos: PP, P, M, G, GG e XG. Produtos, disponibilidade, avaliações e formas de pagamento podem conter dados fictícios. Confirme os detalhes com a loja antes de comprar."
+  "observacao": "Tamanhos disponíveis no catálogo: PP, P, M, G, GG e XG.",
+  "faq": [
+    {
+      "pergunta": "Quais tamanhos a loja trabalha?",
+      "resposta": "PP, P, M, G, GG e XG."
+    },
+    {
+      "pergunta": "A Ornato envia para outros estados?",
+      "resposta": "Sim. Enviamos para todo o Brasil."
+    },
+    {
+      "pergunta": "É possível retirar o pedido?",
+      "resposta": "Sim. Também há opção de retirada na loja principal no Rio de Janeiro."
+    },
+    {
+      "pergunta": "Quais são as formas de pagamento?",
+      "resposta": "PIX, cartão de crédito, cartão de débito e dinheiro na retirada, conforme confirmação no atendimento."
+    },
+    {
+      "pergunta": "Como entrar em contato?",
+      "resposta": "Número de contato: +55 22 8883-0065. Email de contato: ornato.oficial@gmail.com."
+    },
+    {
+      "pergunta": "Qual é o horário de atendimento?",
+      "resposta": "Segunda a sábado, das 9h às 18h (horário de Brasília). Domingos e feriados: fechado."
+    }
+  ]
 }
