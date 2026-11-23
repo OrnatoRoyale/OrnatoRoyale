@@ -56,25 +56,6 @@ const related=document.createElement("section");related.className="related-produ
     return bubble;
   }
 
-  const messages = $("#chat-messages");
-    const bubble = document.createElement("div");
-    bubble.className = `message ${role}`;
-    bubble.textContent = text;
-    messages.append(bubble);
-    messages.scrollTop = messages.scrollHeight;
-    return bubble;
-  }
-
-  const messages = $("#chat-messages");
-    const bubble = document.createElement("div");
-    bubble.className = `message ${role}`;
-    // textContent prevents HTML supplied by a user or by the model from being executed.
-    bubble.textContent = text;
-    messages.append(bubble);
-    messages.scrollTop = messages.scrollHeight;
-    return bubble;
-  }
-
   function getApiError(data, status) {
     const message = data?.error?.message || "";
     if (status === 401) return "A chave da Groq é inválida ou foi revogada. Confira GROQ_API_KEY no arquivo config.js.";
