@@ -198,6 +198,10 @@ const related=document.createElement("section");related.className="related-produ
       renderProducts();
       renderHomeSections();
       renderProductDetail();renderCart();renderCheckout();renderInspirations();updateCartBadges();
+      if (window.location.hash === "#contato") {
+        const scrollToContact = () => document.getElementById("contato")?.scrollIntoView({behavior:"smooth",block:"end"});
+        requestAnimationFrame(() => requestAnimationFrame(scrollToContact));
+      }
     } catch (error) {
       console.error("Erro ao carregar os dados do site:", error);
       if ($("#sobre-texto")) $("#sobre-texto").textContent = "As informações da marca estarão disponíveis em breve.";
