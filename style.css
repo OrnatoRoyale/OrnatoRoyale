@@ -440,3 +440,8 @@ body{background:#fff}
 @media(max-width:520px){.topline{height:30px!important}.topline-center{font-size:9px!important}.site-header{height:76px!important;padding:0 15px!important}.site-header .brand-symbol{width:39px;height:48px}.site-header .brand-name{font-size:22px!important}.header-cart-main{width:38px;height:38px;margin-right:42px}.site-header .menu-toggle{font-size:18px}.about-copy:before{right:17px;top:18px;width:35px;height:35px}.brand-purpose{padding:48px 18px!important}.brand-story .section-wrap{padding-top:44px!important;padding-bottom:44px!important}.brand-service-section{padding:45px 0!important}.service-info-grid{grid-template-columns:1fr!important}}
 
 html{scroll-behavior:smooth}#contato{scroll-margin-top:0!important}
+
+/* Remove o ornamento de canto que interfere no título "Sobre a Ornato". */
+.about-copy:before{content:none!important;display:none!important}
+.about-copy h2{position:relative;z-index:1;isolation:isolate}
+.about-copy h2 em{position:relative;z-index:1}
